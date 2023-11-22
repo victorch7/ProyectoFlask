@@ -1,0 +1,38 @@
+{% extends "base_form.html" %}
+{% block title %}K'liche | Inicio sesión{% endblock %}
+
+{% block content %}
+<body>
+    <body>
+        <div class="d-flex justify-content-center align-items-center vh-100">
+
+            <div class="form-container" style="text-align: center;">
+              <a href="/"><img class="img-fluid mx-auto d-block m-5" width="300px" height="220px"
+                  src="static/images/logo-blanco.png"></a>
+              <p class="title text-white">Inicio de sesión</p>
+              <form class="mb-2">
+                <div class=" input-group flex-nowrap p-2">
+                  <span class="input-group-text" id="addon-wrapping"><i class="bi bi-envelope-at-fill"></i></span>
+                  <input type="email" class="form-control" id="email" placeholder="Ingrese su correo (Ej: ejem123@gmail.com)" aria-label="email" aria-describedby="addon-wrapping" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com">
+                </div> 
+
+                <div class=" input-group flex-nowrap p-2">
+                  <span class="input-group-text" id="addon-wrapping"><i class="bi bi-key-fill"></i></span>
+                  <input type="password" class="form-control" id="nombre" placeholder="Ingrese contraseña (mínimo 8 valores)" aria-label="Username" aria-describedby="addon-wrapping" required minlength="8">                   
+                </div>
+
+                <div class="m-3">
+                  <button class="button" type="submit">Iniciar Sesión</button>
+                </div>
+
+                <div class="row text-center text-white my-2">
+                    <span>¿No tienes una cuenta?, <a class="text-white" href="register">Registrarse</a> </span>
+                </div>
+              </form>
+            </div>
+        </div>
+      </body>
+</body>
+{% endblock content %}
+
+
