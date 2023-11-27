@@ -1,31 +1,30 @@
-from flask import Flask, render_template, send_from_directory,redirect,url_for
-import os
-from config import Config
-from .inicio.routes import inicio_bp
-from .acercade.routes import acercade_bp
-from  .authentication.routes import authentication_bp
-from  .productos.routes import prod_bp
+from flask import Flask
+from flask_mysqldb import MySQL
 
-app = Flask(__name__, static_folder='static', static_url_path='/static')
+mysql = MySQL()
 
-def favicon():
-    return send_from_directory(os.path.join(app.root_path,'app/static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+def create_app():
+    app = Flask(__name__, template_folder='templates')
 
-def page_not_found(e):
-    return render_template('error404.html'), 404
-
-
-def create_app(config_object=Config):
-    app = Flask(__name__)
-    app.config.from_object(config_object)
+    app.config.from_pyfile('config/configuracion.cfg')
+    app.config['MYSQL_HOST'] = 'localhost'
+    app.config['MYSQL_USER'] = 'root'
+    app.config['MYSQL_PASSWORD'] = ''
+    app.config['MYSQL_DB'] = 'kliche'
+    
+    mysql.init_app(app)
+    
+    app.config['mysql'] = mysql
 
     # Registrar Blueprints
+    from .inicio import inicio_bp
+    from .acercade import acercade_bp
+    from .authentication import authentication_bp
+    from .productos import prod_bp
+
     app.register_blueprint(inicio_bp)
     app.register_blueprint(acercade_bp)
     app.register_blueprint(authentication_bp)
     app.register_blueprint(prod_bp)
     
-
-    #Registro manejo de erroes
-    app.register_error_handler(404, page_not_found)
     return app
