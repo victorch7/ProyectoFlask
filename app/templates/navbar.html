@@ -1,0 +1,21 @@
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+{% endblock %}
+
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <button class="navbar-toggler text-white mb-2 bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon text-white bg-white"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <span class="example-spacer"></span>
+            <button class="btn btn-primary me-auto text-white" >Cerrar sesión</button>
+        </div>
+    </div>
+</nav>
+
+{% endblock %}

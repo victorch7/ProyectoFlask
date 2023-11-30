@@ -1,0 +1,64 @@
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% extends 'index.html' %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+
+{% block content %}
+
+<div class="bg-login d-flex justify-content-center align-items-center vh-100">
+  <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
+    <div class="d-flex justify-content-center my-3">
+      <img class="img-fluid" src="{{ url_for('static', filename='images/logokliche.png') }}" alt="Logo Kliche">
+    </div>
+ 
+    <form action="{{ url_for('auth.ingresar') }}" method="post" novalidate>
+      {{ form.hidden_tag() }}
+      
+      <div class="input-group mt-5">
+          <div class="input-group-text">
+              <i class="bi bi-person-fill"></i>
+          </div>
+          {{ form.usuario(class="form-control bg-light") }}
+      </div>
+
+      {% if form.usuario.errors %}
+          <div class="text-danger small mt-2">
+              {% for error in form.usuario.errors %}
+                  <label>{{ error }}</label>
+              {% endfor %}
+          </div>
+      {% endif %}
+
+      <div class="input-group mt-4">
+          <div class="input-group-text">
+              <i class="bi bi-lock-fill"></i>
+          </div>
+          {{ form.contrasena(class="form-control bg-light") }}
+      </div>
+      
+      {% if form.contrasena.errors %}
+        <div class="text-danger small mt-2">
+          {% for error in form.contrasena.errors %}
+              <label>{{ error }}</label>
+          {% endfor %}
+      </div>
+
+      {% endif %}
+  
+      <button type="submit" title="Ingresar" class="btn btn-primary text-white w-100 mt-4 fw-semibold shadow-sm">
+          Iniciar sesión
+      </button>
+  </form>
+  
+
+  </div>
+</div>
+</div>
+
+
+{% endblock %}
+

@@ -1,8 +1,12 @@
 from flask import render_template
-from . import inicio_bp
+from . import inicio
 
-@inicio_bp.route('/home')
-@inicio_bp.route('/')
+@inicio.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+@inicio.route('/home')
+@inicio.route('/')
 def inicio():
     """Pagina de inicio"""
     return render_template('home.html')
