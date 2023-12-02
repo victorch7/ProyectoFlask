@@ -41,3 +41,119 @@
   border-color: #395886;  
 }
 
+/*Estilos de la pagina inicial y del contacto*/
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body{
+  background: linear-gradient(90deg, #191971, #1f8fff);
+}
+
+#color-ent{
+    color: rgb(162, 206, 213);
+}
+
+#boton {
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: rgb(14, 14, 26);
+    color: rgb(234, 234, 234);
+    font-weight: 500;
+    transition: 0.6s;
+    box-shadow: 0px 0px 60px #1f4c65;
+    -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4));
+  }
+
+  #boton:active {
+    scale: 0.92;
+  }
+
+  #boton:hover {
+    background: rgb(2,29,78);
+    background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+    color: rgb(4, 4, 38);
+  }
+
+  .example-card{
+    background: rgba(0,30,50,1);
+    color:aliceblue;
+}
+#imagen-cabecera{
+    height: 200px;
+    width:  450px;
+    margin: 2rem;
+    align-items: center;
+}
+/* Estilo base del grid */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Crea tres columnas de igual ancho */
+}
+
+/* Estilo de las imágenes */
+.image {
+    text-align: center; /* Centra la imagen horizontalmente */
+}
+
+.card img{
+    width: 400px; height: 420px;
+    border-radius: 2%;
+    box-shadow: 6px 6px 8px rgba(0, 247, 255, 0.2);
+
+}
+
+.mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+}
+
+.horizontal-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-between; /* Espacio igual entre elementos */
+  }
+
+  .horizontal-list li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+  }
+
+  #features{
+    color: rgb(197, 179, 179);
+  }
+
+  #addon-wrapping i{
+    color:#2169d4;
+  }
+
+/*centrar div inputs*/
+.centered-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  color: white;
+}
+
+::placeholder {
+  color: white;
+}
+
+/*Estilo para imagenes del carrito*/
+.card-img-top {
+  max-width: 100%; /* Ajusta el ancho máximo de la imagen */
+  height: auto; /* Mantiene la proporción de la imagen */
+}
+
+.card {
+  max-height: 400px; /* Alto máximo de la tarjeta */
+  width: 310px;
+}

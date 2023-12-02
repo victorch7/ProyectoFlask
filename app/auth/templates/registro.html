@@ -1,64 +1,103 @@
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 {% endblock %}
+
 
 {% extends 'index.html' %}
 
-{% block title %}Registro{% endblock %}
-
+{% block title %}Registrarse{% endblock %}
 
 {% block content %}
-
 <div class="bg-login d-flex justify-content-center align-items-center vh-100">
-  <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
-    <div class="d-flex justify-content-center my-3">
-      <img class="img-fluid" src="{{ url_for('static', filename='images/logokliche.png') }}" alt="Logo Kliche">
+    <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
+        <div class="d-flex justify-content-center my-3">
+        <img class="img-fluid" src="{{ url_for('static', filename='images/logokliche.png') }}" alt="Logo Kliche">
+        </div>
+    
+        <form action="{{ url_for('auth.register') }}" method="post" novalidate>
+            {{ form.hidden_tag() }}
+        
+            <div class="input-group mt-4">
+                <div class="input-group-text">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+                {{ form.nombre(class="form-control bg-light", placeholder="Nombre") }}
+            </div>
+
+            {% if form.nombre.errors %}
+                <div class="text-danger small mt-2">
+                    {% for error in form.nombre.errors %}
+                        <label>{{ error }}</label>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="input-group mt-4">
+                <div class="input-group-text">
+                    <i class="bi bi-envelope-fill"></i>
+                </div>
+                {{ form.usuario(class="form-control bg-light", placeholder="Correo de Usuario") }}
+            </div>
+
+            {% if form.usuario.errors %}
+                <div class="text-danger small mt-2">
+                    {% for error in form.usuario.errors %}
+                        <label>{{ error }}</label>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="input-group mt-4">
+                <div class="input-group-text">
+                    <i class="bi bi-phone-fill"></i>
+                </div>
+                {{ form.telefono(class="form-control bg-light", placeholder="Teléfono") }}
+            </div>
+
+            {% if form.telefono.errors %}
+                <div class="text-danger small mt-2">
+                    {% for error in form.telefono.errors %}
+                        <label>{{ error }}</label>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="input-group mt-4">
+                <div class="input-group-text">
+                    <i class="bi bi-house-fill"></i>
+                </div>
+                {{ form.direccion(class_="form-control bg-light", placeholder="Dirección") }}
+            </div>
+
+            {% if form.direccion.errors %}
+                <div class="text-danger small mt-2">
+                    {% for error in form.direccion.errors %}
+                        <label>{{ error }}</label>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="input-group mt-4">
+                <div class="input-group-text">
+                    <i class="bi bi-lock-fill"></i>
+                </div>
+                {{ form.contrasena(class="form-control bg-light", placeholder="Contraseña") }}
+            </div>
+
+            {% if form.contrasena.errors %}
+                <div class="text-danger small mt-2">
+                    {% for error in form.contrasena.errors %}
+                        <label>{{ error }}</label>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        
+            <button type="submit" title="Registrarse" class="btn btn-primary text-white w-100 mt-4 fw-semibold shadow-sm">
+                Registrarse
+            </button>
+        </form>
+
+        </div>  
     </div>
- 
-    <form action="{{ url_for('auth.ingresar') }}" method="post" novalidate>
-      {{ form.hidden_tag() }}
-      
-      <div class="input-group mt-5">
-          <div class="input-group-text">
-              <i class="bi bi-person-fill"></i>
-          </div>
-          {{ form.usuario(class="form-control bg-light") }}
-      </div>
-
-      {% if form.usuario.errors %}
-          <div class="text-danger small mt-2">
-              {% for error in form.usuario.errors %}
-                  <label>{{ error }}</label>
-              {% endfor %}
-          </div>
-      {% endif %}
-
-      <div class="input-group mt-4">
-          <div class="input-group-text">
-              <i class="bi bi-lock-fill"></i>
-          </div>
-          {{ form.contrasena(class="form-control bg-light") }}
-      </div>
-      
-      {% if form.contrasena.errors %}
-        <div class="text-danger small mt-2">
-          {% for error in form.contrasena.errors %}
-              <label>{{ error }}</label>
-          {% endfor %}
-      </div>
-
-      {% endif %}
-  
-      <button type="submit" title="Registrarse" class="btn btn-primary text-white w-100 mt-4 fw-semibold shadow-sm">
-          Registrarse
-      </button>
-  </form>
-  
-
-  </div>
 </div>
-</div>
-
-
 {% endblock %}
-

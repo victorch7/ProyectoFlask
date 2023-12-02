@@ -11,12 +11,12 @@ def create_app():
     from .inicio import inicio
     from .acercade import acercade_bp
     from .auth import auth
-    from .productos import prod_bp
+    from .carritoCompras import carrito
 
     app.register_blueprint(inicio)
     app.register_blueprint(acercade_bp)
     app.register_blueprint(auth)
-    app.register_blueprint(prod_bp)
+    app.register_blueprint(carrito)
     
     app.conexion = conexion.conectar
     

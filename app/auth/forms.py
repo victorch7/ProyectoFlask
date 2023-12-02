@@ -1,16 +1,26 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired, DataRequired, Email
-from wtforms.validators import Length
+from wtforms.validators import InputRequired, DataRequired, Email, Length,Regexp
 
 class LoginForm(FlaskForm):
-    usuario = StringField('Usuario',
-                           validators=[
-                               DataRequired(message='Campo de usuario requerido'),
-
-                               ])
+    
+    nombre = StringField('Nombre', validators=[
+        DataRequired(message='Campo de nombre requerido'),
+        Regexp(r'^[a-zA-Z\s]+$', message='El nombre solo puede contener letras')
+    ])
+    usuario = StringField('Usuario', validators=[
+        DataRequired(message='Campo de usuario requerido'),
+        Email(message='Formato de usuario inválido, Ej: juan@gmail.com')
+    ])
+    telefono = StringField('Telefono', validators=[
+        DataRequired(message='Campo de telefono requerido'),
+        Length(min=10, message='El número de teléfono debe tener 10 dígitos')
+    ])
+    direccion = StringField('Direccion', validators=[
+        DataRequired(message='Campo de dirección requerido')
+    ])
     contrasena = PasswordField('Contrasena', validators=[
-                                InputRequired(message='Campo de contrasena requerido'),
-                                DataRequired()  
-                                ])
+        InputRequired(message='Campo de contrasena requerido'),
+        Length(min=6, message='La contraseña debe tener al menos 6 caracteres')
+    ])
     submit = SubmitField('Ingresar')
