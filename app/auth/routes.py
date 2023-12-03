@@ -1,28 +1,48 @@
-from flask import render_template, request, current_app, redirect, url_for
+from flask import redirect, render_template, url_for, request, flash, current_app
+from flask_mysqldb import MySQL
+
+# blueprints
 from . import auth
+
+# formulario
 from .forms import LoginForm
 
-@auth.route('/')
-def index():
-    return redirect(url_for('auth.login'))
+# modelos
+from .models.ModelClient import ModelClient
 
-@auth.route('/login', methods=['GET', 'POST'])
+# entidades
+from .models.entities.Client import Client
+
+db = MySQL()
+
+@auth.route('/ingresar', methods=['POST'])
+def prueba():
+    if request.method == 'POST':
+        form = LoginForm()
+        if form.validate_on_submit():
+            client = Client('','',request.form.get('usuario'),'','',request.form.get('contrasena'),'','')
+            logged_client = ModelClient.login(db,client)
+
+            if logged_client != None:
+                if logged_client.password:
+                    print(client)
+                    flash("Ingreso exitoso")
+                    return redirect(url_for('carrito.carrito'))
+
+                else:
+                    flash("Contraseña incorrecta")
+            else:
+                flash("Usuario no encontrado")
+
+
+@auth.route('/login', methods=['GET'])
 def login():
     form = LoginForm()
+
     return render_template('login.html', form=form)
 
-@auth.route('/ingresar',  methods=['POST'])
-def ingresar():
-        if request.method == 'POST':
-                form = LoginForm()
-                if form.validate_on_submit():
-                        # Aquí puedes manejar la lógica de inicio de sesión con los datos del formulario
-                        # Por ejemplo, podrías verificar las credenciales y redirigir al usuario
-                        return render_template('carritoCompras.carrito.html')  # Redirigir a la vista del carrito después del inicio de sesión exitoso
-        return render_template('login.html')
-
 @auth.route("/registro", methods=['GET', 'POST'])
-def register(): 
+def register():
     form = LoginForm()
     if form.validate_on_submit():
         _nombre = request.form['nombre']
@@ -30,10 +50,10 @@ def register():
         _telefono = request.form['telefono']
         _direccion = request.form['direccion']
         _password = request.form['contrasena']
-        
+
         sql = "INSERT INTO cliente (nombre, usuario, telefono, direccion, password) VALUES (%s, %s, %s, %s, %s)"
         datos = (_nombre, _usuario, _telefono, _direccion, _password)
-        
+
         try:
             conexion = current_app.conexion()
             cursor = conexion.cursor()

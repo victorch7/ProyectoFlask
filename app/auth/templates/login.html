@@ -15,9 +15,20 @@
       <img class="img-fluid" src="{{ url_for('static', filename='images/logokliche.png') }}" alt="Logo Kliche">
     </div>
  
-    <form action="{{ url_for('auth.ingresar') }}" method="post" novalidate>
-      {{ form.hidden_tag() }}
-      
+    <form action="{{ url_for('auth.prueba') }}" method="post" novalidate>
+        {{ form.hidden_tag() }}
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <br>
+            {% for message in messages %}
+                <div class="text-danger small mt-2" role="alert">
+                    <label>{{ message }}</label>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
       <div class="input-group mt-5">
           <div class="input-group-text">
               <i class="bi bi-person-fill"></i>
