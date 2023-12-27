@@ -13,7 +13,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <span class="example-spacer"></span>
-            <button class="btn btn-primary me-auto text-white" >Cerrar sesión</button>
+            <div class="d-flex align-items-center">
+                <h5 class="text-white mx-3">Usuario: {{ current_user.nombre }}</h5>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-primary me-auto text-white">Cerrar sesión</a>
+            </div>
         </div>
     </div>
 </nav>

@@ -1,0 +1,23 @@
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+{% endblock %}
+
+{% block content %}
+<nav class="navbar">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand mb-0 h1">
+            <img src="{{ url_for('static', filename='images/logo2.png') }}" style="width: 250px">
+        </span>
+        <span class="navbar-brand mb-0 h1">
+            <a class="icon-link text-white" href="https://www.facebook.com/profile.php?id=100063553707214">
+                <svg class="bi" aria-hidden="false"><use xlink:href="#box-seam"></use></svg>
+                <i class="bi bi-facebook"></i> Facebook
+            </a>   
+            <a class="icon-link text-white">
+                <svg class="bi" aria-hidden="false"><use xlink:href="#box-seam"></use></svg>
+                <i class="bi bi-telephone-fill"></i>  300 7312040
+            </a>
+        </span>
+    </div>
+</nav>
+{% endblock content%}

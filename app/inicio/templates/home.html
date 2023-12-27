@@ -4,11 +4,11 @@
 
 {% block content %}
 
-    <main>
+    <body>
         {% include 'navbarPrincipal.html' %}
-        <div class="container  mt-4">
+        <div class="container">
             <img class="img-fluid mx-auto d-block mt-5" src="{{ url_for('static', filename='images/logo-blanco.png') }}">
-            <div class="mt-3">
+            <div>
                 <div class="text-center m-4 text-white">
                     <h2 id="color-ent" class="fs-1">Bienvenido a Lujos K'liche</h2>
                     <h2 id="color-ent" class="fs-4 lh-sm">¡Todo en lujos para autos!</h2>
@@ -16,5 +16,6 @@
                 </div>
             </div>
         </div>
-    </main>
+        <footer class="footer2">{% include 'footer.html' %}</footer>
+    </body>
 {% endblock %}

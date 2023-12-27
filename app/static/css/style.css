@@ -42,7 +42,7 @@
 }
 
 /*Estilos de la pagina inicial y del contacto*/
-html, body { height: 100%; }
+html { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 body{
@@ -106,10 +106,6 @@ body{
 
 }
 
-.mat-mdc-form-field + .mat-mdc-form-field {
-    margin-left: 8px;
-}
-
 .horizontal-list {
     list-style: none;
     padding: 0;
@@ -139,21 +135,8 @@ body{
   justify-content: center;
 }
 
-.mat-form-field-appearance-outline .mat-form-field-outline-thick {
-  color: white;
-}
 
 ::placeholder {
   color: white;
 }
 
-/*Estilo para imagenes del carrito*/
-.card-img-top {
-  max-width: 100%; /* Ajusta el ancho máximo de la imagen */
-  height: auto; /* Mantiene la proporción de la imagen */
-}
-
-.card {
-  max-height: 400px; /* Alto máximo de la tarjeta */
-  width: 310px;
-}

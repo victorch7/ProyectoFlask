@@ -12,7 +12,9 @@
 <div class="bg-login d-flex justify-content-center align-items-center vh-100">
   <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
     <div class="d-flex justify-content-center my-3">
+        <a href="/home">
       <img class="img-fluid" src="{{ url_for('static', filename='images/logokliche.png') }}" alt="Logo Kliche">
+        </a>
     </div>
  
     <form action="{{ url_for('auth.prueba') }}" method="post" novalidate>
@@ -29,11 +31,12 @@
         {% endif %}
         {% endwith %}
 
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
       <div class="input-group mt-5">
           <div class="input-group-text">
-              <i class="bi bi-person-fill"></i>
+              <i class="bi bi-envelope-fill"></i>
           </div>
-          {{ form.usuario(class="form-control bg-light") }}
+          {{ form.usuario(class="form-control bg-light", placeholder="Usuario") }}
       </div>
 
       {% if form.usuario.errors %}
@@ -48,7 +51,7 @@
           <div class="input-group-text">
               <i class="bi bi-lock-fill"></i>
           </div>
-          {{ form.contrasena(class="form-control bg-light") }}
+          {{ form.contrasena(class="form-control bg-light", placeholder="Contraseña") }}
       </div>
       
       {% if form.contrasena.errors %}
@@ -64,7 +67,10 @@
           Iniciar sesión
       </button>
   </form>
-
+  <div class="text-center mt-3">
+    <p>¿No tienes una cuenta?</p>
+    <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary">Registrarse</a>
+  </div>
   </div>
 </div>
 </div>

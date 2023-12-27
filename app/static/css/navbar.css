@@ -1,6 +1,6 @@
 nav {
     background-color: #1f2f47;
-    border-radius: 15px;
+
 }
 
 #cerrar-sesion {
@@ -10,3 +10,20 @@ nav {
 .example-spacer {
     flex: 1 1 auto;
   }
+
+
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+  }
+  
+
+  .footer2 {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+  }
+  

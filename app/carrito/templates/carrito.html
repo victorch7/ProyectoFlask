@@ -1,218 +1,101 @@
-{% extends "index.html" %}
+{% extends 'index.html' %}
 
-{% block title %}Carrito{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/prod.css') }}">
+{% endblock %}
 
 {% block content %}
-    <section class="bg-gradient">
+<body>
+<div class="container-grail">
+    <header>
+        {% include 'navbar.html' %}
+    </header>
+  
+<main>
+    <body class="d-flex flex-column h-100">
 
-        <header class="header my-1 mx-2">
-            {% include 'navbar.html' %}
+            <!-- Menu de navegación -->
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+                <div class="container">
+                    <a class="navbar-brand">K'liche</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarTop" aria-controls="navBarTop" aria-expanded="false">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+        
+                    <div class="collapse navbar-collapse" id="navBarTop">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/carrito">Catalogo</a>
+                            </li>
+                        </ul>
+                        <a href="{{ url_for('carrito.vercarrito') }}" class="btn btn-primary btn-sm me-2">
+                            <i class="bi bi-cart"></i> Carrito <span id="num_cart" class="badge bg-secondary">0</span>
+                        </a>   
+                    </div>
+                </div>
+            </nav>
         </header>
 
-        <div class="container">
-            <h3 class="fw-bolder fs-2 p-3 text-white">Productos disponibles</h3>
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <div class="col mb-5">
-                <div class="card">
-                    <!-- Product image-->
-                    <img
-                    class="card-img-top"
-                    src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                    <div class="text-center">
-                        <!-- Product name-->
-                        <h5 class="fw-bolder">Fancy Product</h5>
-                        <!-- Product price-->
-                        $80.00
+        <div class="container text-white">
+            <h1 class="text-white">Productos</h1>
+            <div class="row">
+                {% for producto in productos%}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100 text-center">
+                                <img src="/static/images/{{ producto[4] }}" alt="Imagen del producto" class="card-img-top">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ producto[1] }}</h4>
+                                    <p class="card-text">{{ producto[2] }}</p>
+                                    <p class="card-text">${{ producto[5] }}</p>
+                                    <div class="text-center">
+                                        <input type="hidden" name="code" value="{{ producto[0] }}"/>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ producto[0] }}">
+                                            Info
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal{{ producto[0] }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ producto[0] }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel{{ producto[0] }}">Descripción</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{ producto[3]}}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="add-to-cart">
+                                            <input type="hidden" name="idProd" value="{{ producto[0] }}"/>
+                                            <input type="hidden" name="nombre" value="{{ producto[1] }}"/>
+                                            <input type="hidden" name="categoria" value="{{ producto[2] }}"/>
+                                            <input type="hidden" name="descripcion" value="{{ producto[3] }}"/>
+                                            <input type="hidden" name="imagen" value="{{ producto[4] }}"/>
+                                            <input type="submit" value="Añadir al carrito" class="btn btn-success mt-2" />
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
                     </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center">
-                        <a class="btn btn-outline-dark mt-auto" href="#"
-                        >Añadir al carrito</a>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img
-                    class="card-img-top"
-                    src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                    <div class="text-center">
-                        <!-- Product name-->
-                        <h5 class="fw-bolder">Special Item</h5>
-                        <!-- Product price-->
-                        $18.00
-                    </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center">
-                        <a class="btn btn-outline-dark mt-auto" href="#"
-                        >Añadir al carrito</a>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img
-                    class="card-img-top"
-                    src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                    <div class="text-center">
-                        <!-- Product name-->
-                        <h5 class="fw-bolder">Sale Item</h5>
-                        <!-- Product price-->
-                        $25.00
-                    </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center">
-                        <a class="btn btn-outline-dark mt-auto" href="#">Añadir al carrito</a>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img
-                    class="card-img-top"
-                    src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                    <div class="text-center">
-                        <!-- Product name-->
-                        <h5 class="fw-bolder">Popular Item</h5>
-                        <!-- Product price-->
-                        $40.00
-                    </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center">
-                        <a class="btn btn-outline-dark mt-auto" href="#">Añadir al carrito</a>
-                    </div>
-                    </div>
-                </div>
-                </div>
-        
-                <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img
-                    class="card-img-top"
-                    src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"alt="..."/>
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                    <div class="text-center">
-                        <!-- Product name-->
-                        <h5 class="fw-bolder">Fancy Product</h5>
-                        <!-- Product price-->
-                        $80.00
-                    </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center">
-                        <a class="btn btn-outline-dark mt-auto" href="#">Añadir al carrito</a>
-                    </div>
-                    </div>
-                </div>
-                </div>
-        
-                <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img
-                    class="card-img-top"
-                    src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                    <div class="text-center">
-                        <!-- Product name-->
-                        <h5 class="fw-bolder">Fancy Product</h5>
-                        <!-- Product price-->
-                        $80.00
-                    </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center">
-                        <a class="btn btn-outline-dark mt-auto" href="#"
-                        >Añadir al carrito</a
-                        >
-                    </div>
-                    </div>
-                </div>
-                </div>
-        
-                <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img
-                    class="card-img-top"
-                    src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
-                    alt="..."
-                    />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                    <div class="text-center">
-                        <!-- Product name-->
-                        <h5 class="fw-bolder">Fancy Product</h5>
-                        <!-- Product price-->
-                        $80.00
-                    </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center">
-                        <a class="btn btn-outline-dark mt-auto" href="#"
-                        >Añadir al carrito</a
-                        >
-                    </div>
-                    </div>
-                </div>
-                </div>
-        
-                <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img
-                    class="card-img-top"
-                    src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
-                    alt="..."
-                    />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                    <div class="text-center">
-                        <!-- Product name-->
-                        <h5 class="fw-bolder">Fancy Product</h5>
-                        <!-- Product price-->
-                        $80.00
-                    </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center">
-                        <a class="btn btn-outline-dark mt-auto" href="#"
-                        >Añadir al carrito</a
-                        >
-                    </div>
-                    </div>
-                </div>
-                </div>
+                {% endfor %}
             </div>
-            </div>
-    </section>    
+        </div>
+    </body>
+ </main> 
+   <!--- <footer class="footer2">{% include 'footer.html' %}</footer>-->
+</div>
+<footer class="footer">{% include 'footer.html' %}</footer>
+
+</body>
+
+
+
 {% endblock content%}

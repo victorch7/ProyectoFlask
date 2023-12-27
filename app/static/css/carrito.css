@@ -1,0 +1,33 @@
+
+/* Estilos para la tarjeta (card) */
+.card {
+  border: 2px solid yellow;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para la tabla */
+.table {
+  background-color: #fff;
+}
+
+/* Estilos para los encabezados de días de la semana */
+.table thead th {
+  background-color: rgb(204, 204, 18);
+  color: #fff;
+}
+
+/* Estilos para los números de días */
+.table tbody td {
+  text-align: center;
+}
+
+/* Estilos para el título del calendario */
+.card-header {
+  background-color: yellow;
+}
+
+/* Estilos para el texto del título */
+.card-title {
+  font-size: 24px;
+}

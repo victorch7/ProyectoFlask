@@ -1,105 +1,144 @@
 /*ESTILOS GENERALES*/
+/* Dashboard main container
+  2 colums, 2 rows
+*/
+
+.container-dashboard {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 60px 1fr;
+}
+
+
+.header {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+
+.sidebar {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  background-color: #1f2f47;
+  border-radius: 15px;
+}
+
+.main {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  background-color: #d5deef;
+  border-radius: 15px;
+}
+
+.logo {
+  grid-column: 1 / 2;
+  /* Ocupa la primera columna */
+  grid-row: 1 / 3;
+  /* Ocupa desde la fila 1 hasta la fila 3 */
+}
+
+.btn-primary {
+  background-color: #395886;
+  border-color: #395886;  
+}
+
+/*Estilos de la pagina inicial y del contacto*/
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 body{
-    background: linear-gradient(90deg, #191971, #1f8fff);
+  background: linear-gradient(90deg, #191971, #1f8fff);
 }
 
 #color-ent{
-    color: rgb(162, 206, 213);
+  color: rgb(162, 206, 213);
 }
 
 #boton {
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 0.4rem;
-    cursor: pointer;
-    text-align: center;
-    text-transform: uppercase;
-    background-color: rgb(14, 14, 26);
-    color: rgb(234, 234, 234);
-    font-weight: 500;
-    transition: 0.6s;
-    box-shadow: 0px 0px 60px #1f4c65;
-    -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4));
-  }
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: rgb(14, 14, 26);
+  color: rgb(234, 234, 234);
+  font-weight: 500;
+  transition: 0.6s;
+  box-shadow: 0px 0px 60px #1f4c65;
+  -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4));
+}
 
-  #boton:active {
-    scale: 0.92;
-  }
+#boton:active {
+  scale: 0.92;
+}
 
-  #boton:hover {
-    background: rgb(2,29,78);
-    background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
-    color: rgb(4, 4, 38);
-  }
+#boton:hover {
+  background: rgb(2,29,78);
+  background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+  color: rgb(4, 4, 38);
+}
 
-  .example-card{
-    background: rgba(0,30,50,1);
-    color:aliceblue;
+.example-card{
+  background: rgba(0,30,50,1);
+  color:aliceblue;
 }
 #imagen-cabecera{
-    height: 200px;
-    width:  450px;
-    margin: 2rem;
-    align-items: center;
+  height: 200px;
+  width:  450px;
+  margin: 2rem;
+  align-items: center;
 }
 /* Estilo base del grid */
 .image-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Crea tres columnas de igual ancho */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Crea tres columnas de igual ancho */
 }
 
 /* Estilo de las imágenes */
 .image {
-    text-align: center; /* Centra la imagen horizontalmente */
+  text-align: center; /* Centra la imagen horizontalmente */
 }
 
 .card img{
-    width: 400px; height: 420px;
-    border-radius: 2%;
-    box-shadow: 6px 6px 8px rgba(0, 247, 255, 0.2);
+  width: 400px; height: 420px;
+  border-radius: 2%;
+  box-shadow: 6px 6px 8px rgba(0, 247, 255, 0.2);
 
-}
-
-.mat-mdc-form-field + .mat-mdc-form-field {
-    margin-left: 8px;
 }
 
 .horizontal-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: space-between; /* Espacio igual entre elementos */
-  }
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-between; /* Espacio igual entre elementos */
+}
 
-  .horizontal-list li {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 5px;
-  }
+.horizontal-list li {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 5px;
+}
 
-  #features{
-    color: rgb(197, 179, 179);
-  }
+#features{
+  color: rgb(197, 179, 179);
+}
 
-  #addon-wrapping i{
-    color:#2169d4;
-  }
+#addon-wrapping i{
+  color:#2169d4;
+}
 
 /*centrar div inputs*/
 .centered-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
 }
 
-.mat-form-field-appearance-outline .mat-form-field-outline-thick {
-  color: white;
-}
 
 ::placeholder {
-  color: white;
+color: white;
 }
+
+
