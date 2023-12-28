@@ -4,5 +4,6 @@ __pycache__/
 entorno/
 
 .env
+ev-flask
 
 app.log

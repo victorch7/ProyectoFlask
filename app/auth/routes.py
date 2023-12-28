@@ -1,7 +1,7 @@
 import logging
 from flask import redirect, render_template, url_for, request, flash, current_app
-from flask_mysqldb import MySQL
-from werkzeug.security import  generate_password_hash
+
+
 from flask_login import current_user, login_user,logout_user, login_required
 # blueprints
 from . import auth
@@ -22,14 +22,14 @@ def prueba():
         form = LoginForm()
         if form.validate_on_submit():
             client = Client('','',request.form.get('usuario'),'','',request.form.get('contrasena'),'','')
-            db = current_app.config['db']
-            logged_client = ModelClient.login(db,client)
+
+            logged_client = ModelClient.login(client)
 
             if logged_client != None:
                 if logged_client.password:
                     logging.info(f"Usuario: {logged_client.nombre} ha iniciado sesión")
                     login_user(logged_client)
-                    return redirect(url_for('carrito.mostrar_carrito'))
+                    return redirect(url_for('carrito.mostrarProductos'))
 
                 else:
                     flash("Contraseña incorrecta")
@@ -41,29 +41,19 @@ def prueba():
 @auth.route('/login', methods=['GET'])
 def login():
     form = LoginForm()
-
     return render_template('login.html', form=form)
 
 @auth.route("/registro", methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        _nombre = request.form['nombre']
-        _usuario = request.form['usuario']
-        _telefono = request.form['telefono']
-        _direccion = request.form['direccion']
-        _password = request.form['contrasena']
 
-        sql = "INSERT INTO cliente (nombre, usuario, telefono, direccion, contrasena) VALUES (%s, %s, %s, %s, %s)"
-        datos = (_nombre, _usuario, _telefono, _direccion,generate_password_hash(_password) )
-
-        try:
-            conexion = current_app.conexion()
-            cursor = conexion.cursor()
-            cursor.execute(sql,datos)
-            conexion.commit()
-            conexion.close()
+        client = Client(id='',nombre=request.form['nombre'], usuario=request.form.get('usuario'), telefono=request.form.get('telefono'),direccion=request.form.get('direccion'),password=request.form.get('contrasena'),ultimo_login='',fecha_creacion='')
+        
+        try:        
+            ModelClient.registro(client)
             return redirect(url_for('auth.login'))  # Redirigir al inicio de sesión después del registro exitoso
+        
         except Exception as e:
             mensaje = f"Error al insertar datos: {str(e)}"
             return render_template('registro.html', form=form, mensaje=mensaje)

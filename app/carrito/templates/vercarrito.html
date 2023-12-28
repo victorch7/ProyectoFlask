@@ -1,54 +1,48 @@
-{% extends 'carritoBase.html' %}
+{% extends 'index.html' %}
 
-
-{%block title%}Carrito de compras{%endblock%}
+{% block title %}Carrito de compras{% endblock %}
 
 {% block content %}
-
-
     <header>
         {% include 'navbar.html' %}
     </header>
     <br><br>
 
-    <body class="bg-dark text-white" style="background-color: black;">
+    <div class="bg-dark text-white">
         <div class="container mt-5">
             <h1 class="text-center mb-5">Carrito de Compras</h1>
-    
-            <!-- Agrega un elemento para mostrar el precio total -->
-            <!--<p class="font-weight-bold" id="precio-total">Precio Total: $0.00</p>-->
 
-        {% for producto in productos %} 
-            <div class="card mb-3">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="{{ url_for('static', filename='img/' + item.imagen) }}" alt="{{ carrito[3] }}">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ item[1] }}</h5>
-                            <p class="card-text">Precio: ${{ item[4] }}</p>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="cantidad-{{ item[0] }}">Cantidad</label>
+ 
+            <ul class="list-group">
+                {% for producto in carrito %} 
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="{{ url_for('static', filename='img/') }}" alt="{{ producto['nombre'] }}" class="img-fluid">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title text-black">{{ producto['nombre'] }}</h5>
+                                    <p class="card-text text-black">Precio: ${{ producto['precio'] }}</p>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="cantidad-{{ producto['id'] }}">Cantidad</label>
+                                        </div>
+                                    </div>
+                                    <a href="{{ url_for('carrito.eliminar_producto', producto_id=producto['id']) }}" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
-
                         </div>
-                    </div>
-                </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <!-- Button to clear the cart -->
+            <div class="col-12 mt-3">
+                <a href="{{ url_for('carrito.vaciar_carrito') }}" class="btn btn-danger">Vaciar Carrito</a>
             </div>
-        {% endfor %}
-    
 
-        </div>    
-
-
+        </div>
         <footer class="footer2">{% include 'footer.html' %}</footer>
-
-
-<body>
-
-
-
-{% endblock content %}
+    </div>
+{% endblock %}
