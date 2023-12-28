@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/prod.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/prod.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -43,62 +43,43 @@
 
                 <div class="container text-white">
                     <h1 class="text-white">Productos</h1>
-                    <div class="col-12 btn btn-danger">
-                        <a href="{{ url_for('carrito.vaciar_carrito') }}">Vaciar Carrito</a>
-                    </div>
+                    <div class="col-12">
+                        <!-- <a href="{{ url_for('carrito.vaciar_carrito') }}">Vaciar Carrito</a> -->
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <br>
+                            {% for message in messages %}
+                                <div class="text-danger small mt-2" role="alert">
+                                    <label>{{ message }}</label>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+                    
+
                     <div class="row">
                         {% for producto in productos %}
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100 text-center">
                                 <img src="/static/images/{{ producto[4] }}" alt="Imagen del producto"
-                                    class="card-img-top">
+                                    class="card-img-top img-fluid">
                                 <div class="card-body">
                                     <h4 class="card-title">{{ producto[1] }}</h4>
                                     <p class="card-text">{{ producto[2] }}</p>
+                                    <p class="card-text">Disponible: {{ producto[6] }}</p>
                                     <p class="card-text">${{ producto[5] }}</p>
                                     <div class="text-center">
-                                        <input type="hidden" name="code" value="{{ producto[0] }}" />
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal{{ producto[0] }}">
-                                            Info
-                                        </button>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal{{ producto[0] }}" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel{{ producto[0] }}" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5"
-                                                            id="exampleModalLabel{{ producto[0] }}">Descripción</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        {{ producto[3]}}
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Cerrar</button>
-                                                    </div>
-                                                </div>
+                                        <form action="{{ url_for('carrito.agregar_producto', producto_id=producto[0], producto_nombre=producto[1], producto_precio=producto[5], producto_cantidad=producto[6]) }}" method="post">
+                                            {{ form.hidden_tag() }}
+                                            <div class="input-group mb-3">
+                                                <label for="cantidad{{ producto[0] }}" class="input-group-text">Cantidad:</label>
+                                                {{ form.cantidad(class="form-control") }}
                                             </div>
-                                        </div>
-
-                                        <div class="add-to-cart">
-                                            <input type="hidden" name="idProd" value="{{ producto[0] }}" />
-                                            <input type="hidden" name="nombre" value="{{ producto[1] }}" />
-                                            <input type="hidden" name="categoria" value="{{ producto[2] }}" />
-                                            <input type="hidden" name="descripcion" value="{{ producto[3] }}" />
-                                            <input type="hidden" name="imagen" value="{{ producto[4] }}" />
-
-                                            <a class="btn btn-success mt-2"
-                                            href="{{ url_for('carrito.agregar_producto', producto_id=producto[0], producto_nombre=producto[1], producto_precio=producto[5]) }}">Agregar al carrito</a>
-                                         
-
-                                        </div>
-
-                                    </div>
+                                            <div class="add-to-cart">
+                                                <button type="submit" class="btn btn-success mt-2">Agregar al carrito</button>
+                                            </div>
+                                        </form>
+                                     </div>
                                 </div>
                             </div>
                         </div>

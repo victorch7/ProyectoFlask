@@ -1,4 +1,4 @@
-from flask import render_template, current_app, session, redirect, url_for, session, jsonify, request
+from flask import flash, render_template, current_app, session, redirect, url_for, session, jsonify, request
 from flask_login import login_required
 
 #modelos
@@ -9,12 +9,17 @@ from .models.ModelCarrito import ModelCarrito
 #blueprint
 from . import carrito
 
+#formulario cantidad
+from .form import AgregarProductoForm
+
+
 @carrito.route('/productos', methods=['POST', 'GET'])
 @login_required
 def mostrarProductos():
     try:
+        formProducto = AgregarProductoForm()
         productos = ModelCarrito.mostrarListaProductos()
-        return render_template('carrito.html', productos=productos)
+        return render_template('carrito.html', productos=productos, form=formProducto)
 
     except Exception as error: 
         print(error)
@@ -40,17 +45,25 @@ def verCarrito():
 
 
 
-@carrito.route('/agregar/<int:producto_id>/<producto_nombre>/<float:producto_precio>')
-def agregar_producto(producto_id, producto_nombre, producto_precio):
+@carrito.route('/agregar/<int:producto_id>/<producto_nombre>/<float:producto_precio>/<int:producto_cantidad>', methods=['POST'])
+def agregar_producto(producto_id, producto_nombre, producto_precio, producto_cantidad):
+
     if 'carrito' not in session:
         session['carrito'] = []
+
+    cantidad = int(request.form.get('cantidad'))  # Obtener la cantidad del formulario, usar 1 por defecto si no se proporciona
+
+    if cantidad > producto_cantidad:
+        flash("No hay suficiente stock de este producto", 'error')
+        return redirect(url_for('carrito.mostrarProductos'))
 
     if not session['carrito'] or producto_id not in [item['id'] for item in session['carrito']]:
         # Guardar información del producto en la sesión
         session['carrito'].append({
             'id': producto_id,
             'nombre': producto_nombre,
-            'precio': producto_precio
+            'precio': producto_precio,
+            'cantidad': cantidad
         })
         session.modified = True  # Marcar la sesión como modificada
 
