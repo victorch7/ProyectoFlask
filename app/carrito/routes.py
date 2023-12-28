@@ -33,10 +33,10 @@ def verCarrito():
             return render_template('vercarrito.html', carrito=carrito_productos)
         else:
             print("No hay un carrito en la sesión.")
-            return render_template('vercarrito.html', carrito=None)
+            return render_template('vercarrito.html')
     except Exception as error:
         print("Error al conectar a MySQL:", error)
-        return "Error al conectar a MySQL"
+        return error
 
 
 
