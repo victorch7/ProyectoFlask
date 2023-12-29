@@ -45,6 +45,35 @@ class ModelCarrito():
         finally:
             connection.close()
 
+    @classmethod
+    def insertarDetallesCarrito(self):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                
+                sql = """INSERT INTO carrito (precioTotal, estado) VALUES (%s, %s)"""
+
+                print("Productos en el carrito:")
+                for producto in session['carrito']:
+                    print("Información del Producto:")
+                for clave, valor in producto.items():
+                    print(f"{clave}: {valor}")
+                    sql = """INSERT INTO detalles_carrito (idProducto, cantidad) VALUES (%s, %s)"""
+
+
+                print("------")
+
+
+                sql = """INSERT INTO carrito (idProducto, cantidad) VALUES (%s, %s)"""
+                cursor.execute(sql, (session['idProducto'], session['cantidad']))
+                connection.commit()
+        except connection.mysql.connector.Error as e:
+            logging.error(f"Error en la base de datos: {e}")
+            if e.errno  == 2003:
+                return render_template('error_conexion_servidor.html')
+        finally:
+            connection.close()
+
 
     @classmethod
     def obtenerDetallesProducto(self):

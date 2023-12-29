@@ -12,7 +12,24 @@
         <div class="container mt-5">
             <h1 class="text-center mb-5">Carrito de Compras</h1>
 
+            
+            {% if carrito|length == 0 %}
+                <div class="alert alert-info" role="alert">
+                    El carrito está vacío
+                </div>
+            {% else %}
+                <a href="{{ url_for('carrito.comprarCarrito') }}" class="btn btn-success my-4">Comprar</a>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <h4>Total: ${{ total }}</h4>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
  
+              
+
             <ul class="list-group">
                 {% for producto in carrito %} 
                     <li class="list-group-item">
@@ -26,7 +43,7 @@
                                     <p class="card-text text-black">Precio: ${{ producto['precio'] }}</p>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="cantidad-{{ producto['id'] }}">Cantidad</label>
+                                            <label class="input-group-text" for="cantidad-{{ producto['id'] }}">Cantidad: {{ producto['cantidad'] }}</label>
                                         </div>
                                     </div>
                                     <a href="{{ url_for('carrito.eliminar_producto', producto_id=producto['id']) }}" class="btn btn-danger">Eliminar</a>
@@ -38,11 +55,16 @@
             </ul>
 
             <!-- Button to clear the cart -->
-            <div class="col-12 mt-3">
-                <a href="{{ url_for('carrito.vaciar_carrito') }}" class="btn btn-danger">Vaciar Carrito</a>
-            </div>
-
+            {% if carrito|length != 0 %}
+                <div class="col-12 mt-3">
+                    <a href="{{ url_for('carrito.vaciar_carrito') }}" class="btn btn-danger">Vaciar Carrito</a>
+                </div>
+            {% endif %}
         </div>
-        <footer class="footer2">{% include 'footer.html' %}</footer>
+        
+
+
+
+
     </div>
 {% endblock %}
