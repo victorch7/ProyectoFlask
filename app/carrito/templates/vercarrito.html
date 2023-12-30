@@ -12,13 +12,19 @@
         <div class="container mt-5">
             <h1 class="text-center mb-5">Carrito de Compras</h1>
 
-            
-            {% if carrito|length == 0 %}
-                <div class="alert alert-info" role="alert">
-                    El carrito está vacío
-                </div>
-            {% else %}
-                <a href="{{ url_for('carrito.comprarCarrito') }}" class="btn btn-success my-4">Comprar</a>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }} alert-dismissible fade show mb-3" role="alert">
+                                        <label>{{ message }}</label>
+                                    </div>
+                                {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+
+            {% if session['carrito'] %}
+                <a href="{{ url_for('carrito.comprarCarrito', preciototal=total) }}" class="btn btn-success my-4">Comprar</a>
                 <div class="col-12">
                     <div class="row">
                         <div class="col-6">
@@ -26,45 +32,39 @@
                         </div>
                     </div>
                 </div>
-            {% endif %}
- 
-              
 
-            <ul class="list-group">
-                {% for producto in carrito %} 
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="{{ url_for('static', filename='img/') }}" alt="{{ producto['nombre'] }}" class="img-fluid">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title text-black">{{ producto['nombre'] }}</h5>
-                                    <p class="card-text text-black">Precio: ${{ producto['precio'] }}</p>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="cantidad-{{ producto['id'] }}">Cantidad: {{ producto['cantidad'] }}</label>
+                <ul class="list-group">
+                    {% for producto in session['carrito'] %} 
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{{ url_for('static', filename='img/') }}" alt="{{ producto['nombre'] }}" class="img-fluid">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-black">{{ producto['nombre'] }}</h5>
+                                        <p class="card-text text-black">Precio: ${{ producto['precio'] }}</p>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="cantidad-{{ producto['id'] }}">Cantidad: {{ producto['cantidad'] }}</label>
+                                            </div>
                                         </div>
+                                        <a href="{{ url_for('carrito.eliminar_producto', producto_id=producto['id']) }}" class="btn btn-danger">Eliminar</a>
                                     </div>
-                                    <a href="{{ url_for('carrito.eliminar_producto', producto_id=producto['id']) }}" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
 
-            <!-- Button to clear the cart -->
-            {% if carrito|length != 0 %}
                 <div class="col-12 mt-3">
                     <a href="{{ url_for('carrito.vaciar_carrito') }}" class="btn btn-danger">Vaciar Carrito</a>
                 </div>
+            {% else %}
+                <div class="alert alert-info" role="alert">
+                    El carrito está vacío
+                </div>
             {% endif %}
         </div>
-        
-
-
-
-
     </div>
 {% endblock %}

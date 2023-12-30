@@ -41,25 +41,36 @@ def verCarrito():
         if 'carrito' in session:
             print("Hay un carrito en la sesión.")
             print("Productos en el carrito:", session['carrito'])
-            carrito_productos = session.get('carrito', [])
             
             #precio total
             totalprecio = 0
             for producto in session['carrito']:
                 totalprecio += (producto['precio'] * producto['cantidad'])
                     
-            return render_template('vercarrito.html', carrito=carrito_productos, total=totalprecio)
+            return render_template('vercarrito.html', total=totalprecio)
         else:
             print("No hay un carrito en la sesión.")
-            return render_template('vercarrito.html')
+            return render_template('vercarrito.html', carrito=[] ,total=0)
     except Exception as error:
         print("Error al conectar a MySQL:", error)
         return error
 
 
-@carrito.route('/comprar')
-def comprarCarrito():
-    pass
+@carrito.route('/comprar/<int:preciototal>')
+def comprarCarrito(preciototal):
+    carrito_datos = session['carrito']
+    carrito_guardado = ModelCarrito.comprarDetallesCarrito(carrito_datos, preciototal)
+    
+    if carrito_guardado:
+        # Eliminar la sesión del carrito
+        if 'carrito' in session:
+            session.pop('carrito')
+        session.modified = True
+        flash('Carrito comprado', 'success')
+    else:
+        flash('Error al comprar el carrito', 'danger')
+
+    return redirect(url_for('carrito.verCarrito'))
 
 @carrito.route('/agregar/<int:producto_id>/<producto_nombre>/<float:producto_precio>/<int:producto_cantidad>', methods=['POST'])
 def agregar_producto(producto_id, producto_nombre, producto_precio, producto_cantidad):
