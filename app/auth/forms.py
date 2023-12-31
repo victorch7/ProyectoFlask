@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired, DataRequired, Email, Length,Regexp
+from wtforms.validators import InputRequired, DataRequired, Email, Length, Regexp, EqualTo
 
 class LoginForm(FlaskForm):
     
@@ -34,4 +34,9 @@ class RegisterForm(FlaskForm):
         InputRequired(message='Campo de contrasena requerido'),
         Length(min=6, message='La contraseña debe tener al menos 6 caracteres')
     ])
+        confirmar_contrasena = PasswordField('Confirmar Contrasena', validators=[
+        InputRequired(message='Campo de confirmación de contraseña requerido'),
+        EqualTo('contrasena', message='Las contraseñas deben coincidir')
+    ])
+
         submit = SubmitField('Ingresar')

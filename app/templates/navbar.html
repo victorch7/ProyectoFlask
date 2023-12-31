@@ -27,12 +27,12 @@
                         <span class="text-white">Usuario: {{ current_user.nombre }}</span>
                     </li>
                     <li class="nav-item me-3 my-1">
-                        <a href="{{ url_for('carrito.verCarrito') }}" class="btn btn-primary">
+                        <a href="{{ url_for('carrito.verCarrito') }}" class="btn btn-dark">
                             <i class="bi bi-cart"></i> Carrito <span class="badge bg-secondary">{{ totalproductos }}</span>
                         </a>
                     </li>
                     <li class="nav-item me-3 my-1">
-                        <a href="{{ url_for('auth.logout') }}" class="btn btn-primary text-white">Cerrar sesión</a>
+                        <a href="{{ url_for('auth.logout') }}" class="btn btn-dark text-white">Cerrar sesión</a>
                     </li>
                 </ul>
             </div>

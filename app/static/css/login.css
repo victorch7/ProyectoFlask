@@ -7,3 +7,7 @@
   background-color: #1f2f47;
   border-color: #1f2f47;
 }
+
+.input-group-text {
+  cursor: pointer; /* Hace que el ícono del ojo sea clickeable */
+}

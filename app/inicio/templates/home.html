@@ -1,6 +1,10 @@
 {% extends "index.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Inicio{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+{% endblock %}
 
 {% block content %}
 
@@ -12,10 +16,10 @@
                 <div class="text-center m-4 text-white">
                     <h2 id="color-ent" class="fs-1">Bienvenido a Lujos K'liche</h2>
                     <h2 id="color-ent" class="fs-4 lh-sm">¡Todo en lujos para autos!</h2>
-                    <a href="/contacto" type="button" class="btn btn-dark p-2 mt-3" style="text-transform: none;">Sobre nosotros</a>              
+                    <a href="/contacto" type="button" class="btn btn-dark p-2 mt-3 shadow" style="text-transform: none;">Sobre nosotros</a>              
                 </div>
             </div>
         </div>
-        <footer class="footer2">{% include 'footer.html' %}</footer>
+        <footer class="footer">{% include 'footer.html' %}</footer>
     </body>
 {% endblock %}

@@ -2,6 +2,10 @@
 
 {% block title %}Sobre K'liche{% endblock %}
 
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+{% endblock %}
+
 {% block content %}
 {% include 'navbarPrincipal.html' %}
 <body>

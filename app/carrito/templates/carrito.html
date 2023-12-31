@@ -65,25 +65,23 @@
     <div class="container my-4 text-white">
         <div class="mt-3 text-center ">
             {% if page > 1 %}
-                <a href="{{ url_for('carrito.mostrarProductos', page=page-1) }}" class="btn btn-dark">Anterior</a>
+                <a href="{{ url_for('carrito.mostrarProductos', page=page-1) }}" class="btn btn-dark shadow">Anterior</a>
             {% else %}
-                <span class="btn btn-dark disabled">Anterior</span>
+                <span class="btn btn-dark disabled shadow">Anterior</span>
             {% endif %}
 
             <span class="mx-2">Página {{ page }} de {{ total_pages }}</span>
 
             {% if page < total_pages %}
-                <a href="{{ url_for('carrito.mostrarProductos', page=page+1) }}" class="btn btn-dark">Siguiente</a>
+                <a href="{{ url_for('carrito.mostrarProductos', page=page+1) }}" class="btn btn-dark shadow">Siguiente</a>
             {% else %}
-                <span class="btn btn-dark disabled">Siguiente</span>
+                <span class="btn btn-dark disabled shadow">Siguiente</span>
             {% endif %}
         </div>
     </div>
 
-
-<!--- <footer class="footer2">{% include 'footer.html' %}</footer>-->
 </div>
-<footer class="footer">{% include 'footer.html' %}</footer>
+<footer>{% include 'footer.html' %}</footer>
 
 
 

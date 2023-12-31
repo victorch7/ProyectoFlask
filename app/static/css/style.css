@@ -45,7 +45,8 @@
 html { height: 100%; }
 body {
   margin: 0;
-  font-family: 'Lato', sans-serif;
+  
+  font-family: 'Ubuntu', sans-serif;;
 
   /* background: linear-gradient(90deg, #191971, #1f8fff); */
   background: #395886;

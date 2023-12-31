@@ -6,6 +6,10 @@
 
 {% block title %}Iniciar sesión{% endblock %}
 
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+{% endblock %}
+
 
 {% block content %}
 
@@ -48,11 +52,15 @@
       {% endif %}
 
       <div class="input-group mt-4">
-          <div class="input-group-text">
-              <i class="bi bi-lock-fill"></i>
-          </div>
-          {{ form.contrasena(class="form-control bg-light", placeholder="Contraseña") }}
-      </div>
+        <div class="input-group-text">
+            <i class="bi bi-lock-fill"></i>
+        </div>
+        {{ form.contrasena(class="form-control bg-light", placeholder="Contraseña", id="password") }}
+        <div class="input-group-text">
+            <i class="bi bi-eye-fill" onclick="togglePasswordVisibility()"></i>
+        </div>
+    </div>
+    
       
       {% if form.contrasena.errors %}
         <div class="text-danger small mt-2">

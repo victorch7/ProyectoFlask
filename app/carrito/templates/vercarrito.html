@@ -2,6 +2,11 @@
 
 {% block title %}Carrito de compras{% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+{% endblock %}
+
+
 {% block content %}
     <header>
         {% include 'navbar.html' %}
@@ -16,7 +21,7 @@
 
         </div>
         <div class="container mt-5">
-            <h1 class="text-center mb-5">Carrito de Compras</h1>
+            <h1 class="text-center mb-3">Carrito de Compras</h1>
 
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
@@ -30,7 +35,7 @@
 
 
             {% if session['carrito'] %}
-                <a href="{{ url_for('carrito.comprarCarrito', preciototal=total) }}" class="btn btn-success my-4">Comprar</a>
+                <a href="{{ url_for('carrito.comprarCarrito', preciototal=total) }}" class="btn btn-success my-4"><i class="bi bi-currency-dollar me-1"></i>Comprar</a>
                 <div class="col-12">
                     <div class="row">
                         <div class="col-6 mb-2">
@@ -64,7 +69,7 @@
                 </ul>
 
                 <div class="col-12 mt-3">
-                    <a href="{{ url_for('carrito.vaciar_carrito') }}" class="btn btn-danger">Vaciar Carrito</a>
+                    <a href="{{ url_for('carrito.vaciar_carrito') }}" class="btn btn-danger"><i class="bi bi-trash-fill me-1"></i> Vaciar Carrito</a>
                 </div>
             {% else %}
                 <div class="alert alert-info" role="alert">
@@ -73,4 +78,8 @@
             {% endif %}
         </div>
     </div>
+
+    <footer class="footer mt-4">{% include 'footer.html' %}</footer>
+
+
 {% endblock %}

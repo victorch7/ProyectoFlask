@@ -32,6 +32,9 @@ def page_not_found(e):
 
 def status_401(error):
         return redirect(url_for('auth.login'))
+
+def status_500(error):
+        return render_template('error500.html'), 500
     
 
 def create_app():
@@ -60,5 +63,7 @@ def create_app():
     #Errores
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(401, status_401)
+    app.register_error_handler(500, status_500)
+   
 
     return app

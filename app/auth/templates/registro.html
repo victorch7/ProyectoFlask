@@ -7,6 +7,10 @@
 
 {% block title %}Registrarse{% endblock %}
 
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+{% endblock %}
+
 {% block content %}
 <div class="bg-login d-flex justify-content-center align-items-center vh-100">
     <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
@@ -79,16 +83,39 @@
                 </div>
             {% endif %}
 
+            <!-- Campo de contraseña -->
             <div class="input-group mt-4">
                 <div class="input-group-text">
                     <i class="bi bi-lock-fill"></i>
                 </div>
-                {{ form.contrasena(class="form-control bg-light", placeholder="Contraseña") }}
+                {{ form.contrasena(id="contrasena", class="form-control bg-light", placeholder="Contraseña") }}
+                <div class="input-group-text">
+                    <i class="bi bi-eye-fill" onclick="togglePassword('contrasena')"></i>
+                </div>
             </div>
 
             {% if form.contrasena.errors %}
                 <div class="text-danger small mt-2">
                     {% for error in form.contrasena.errors %}
+                        <label>{{ error }}</label>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Campo de confirmación de contraseña -->
+            <div class="input-group mt-4">
+                <div class="input-group-text">
+                    <i class="bi bi-lock-fill"></i>
+                </div>
+                {{ form.confirmar_contrasena(id="confirmar_contrasena", class="form-control bg-light", placeholder="Confirmar Contraseña") }}
+                <div class="input-group-text">
+                    <i class="bi bi-eye-fill" onclick="togglePassword('confirmar_contrasena')"></i>
+                </div>
+            </div>
+            
+            {% if form.confirmar_contrasena.errors %}
+                <div class="text-danger small mt-2">
+                    {% for error in form.confirmar_contrasena.errors %}
                         <label>{{ error }}</label>
                     {% endfor %}
                 </div>

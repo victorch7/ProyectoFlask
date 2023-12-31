@@ -32,7 +32,6 @@ def mostrarProductos():
         return render_template('carrito.html', form=formProducto, productos=items_on_page, 
                                total_pages=total_pages, page=page, totalproductos=totalproductos)
     except Exception as e:
-        print(e)
         return redirect(url_for('error'))
 
 
@@ -43,9 +42,6 @@ def verCarrito():
     try:
         # Verifica si hay un carrito en la sesión
         if 'carrito' in session:
-            print("Hay un carrito en la sesión.")
-            print("Productos en el carrito:", session['carrito'])
-            
             #precio total
             totalprecio = 0
             for producto in session['carrito']:
@@ -53,10 +49,8 @@ def verCarrito():
                     
             return render_template('vercarrito.html', total=totalprecio)
         else:
-            print("No hay un carrito en la sesión.")
             return render_template('vercarrito.html', carrito=[] ,total=0)
     except Exception as error:
-        print("Error al conectar a MySQL:", error)
         return error
 
 
@@ -101,7 +95,6 @@ def agregar_producto(producto_id, producto_nombre, producto_precio, producto_can
     else:
         flash("El producto ya se encuentra en el carrito", 'info')
 
-    print("Productos en el carrito:", session['carrito'])
     return redirect(url_for('carrito.mostrarProductos'))
 
 
