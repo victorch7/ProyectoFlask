@@ -24,10 +24,15 @@
 
 /* Estilos para el título del calendario */
 .card-header {
-  background-color: yellow;
+  background-color: #395886;
 }
 
 /* Estilos para el texto del título */
 .card-title {
   font-size: 24px;
+}
+
+.btn .btn-primary {
+  background-color: #395886;
+  border-color: #395886;
 }

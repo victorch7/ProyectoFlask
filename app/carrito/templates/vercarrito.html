@@ -8,17 +8,23 @@
     </header>
     <br><br>
 
-    <div class="bg-dark text-white">
+    <div class="text-white">
+        <div class="container">
+            <div class="ms-auto">
+                <a href="{{ url_for('carrito.mostrarProductos', preciototal=total) }}" class="btn btn-info">Atras</a>
+            </div>
+
+        </div>
         <div class="container mt-5">
             <h1 class="text-center mb-5">Carrito de Compras</h1>
 
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
-                                    <div class="alert alert-{{ category }} alert-dismissible fade show mb-3" role="alert">
-                                        <label>{{ message }}</label>
-                                    </div>
-                                {% endfor %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show mb-3" role="alert">
+                            <label>{{ message }}</label>
+                        </div>
+                    {% endfor %}
                 {% endif %}
             {% endwith %}
 

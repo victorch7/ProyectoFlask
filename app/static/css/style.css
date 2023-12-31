@@ -43,11 +43,14 @@
 
 /*Estilos de la pagina inicial y del contacto*/
 html { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
 
-body{
-  background: linear-gradient(90deg, #191971, #1f8fff);
+  /* background: linear-gradient(90deg, #191971, #1f8fff); */
+  background: #395886;
 }
+
 
 #color-ent{
     color: rgb(162, 206, 213);

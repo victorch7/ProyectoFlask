@@ -20,17 +20,21 @@ def mostrarProductos():
         formProducto = AgregarProductoForm()
         productos = ModelCarrito.mostrarListaProductos()
 
-        #cantidad de productos de la lista sesión['carrito']
-        if 'carrito' not in session:
-            totalproductos = 0
-        else:
-            totalproductos = len(session['carrito'])
-                        
+        # Cantidad de productos en el carrito
+        totalproductos = len(session['carrito']) if 'carrito' in session else 0
 
-        return render_template('carrito.html', productos=productos, form=formProducto, totalproductos=totalproductos)
-    except Exception as error: 
-        print(error)
-        return error
+        # Paginación
+        page = request.args.get('page', 1, type=int)
+        per_page = 6
+        total_pages = (len(productos) + per_page - 1) // per_page
+        items_on_page = productos[(page - 1) * per_page: page * per_page]
+
+        return render_template('carrito.html', form=formProducto, productos=items_on_page, 
+                               total_pages=total_pages, page=page, totalproductos=totalproductos)
+    except Exception as e:
+        print(e)
+        return redirect(url_for('error'))
+
 
 
 @carrito.route('/carrito')
@@ -120,5 +124,6 @@ def vaciar_carrito():
     # Eliminar la sesión del carrito
     if 'carrito' in session:
         session.pop('carrito')
+        flash("Carrito vaciado", 'info')
     session.modified = True
     return redirect(url_for('carrito.mostrarProductos'))
