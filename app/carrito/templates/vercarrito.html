@@ -11,7 +11,7 @@
     <div class="text-white">
         <div class="container">
             <div class="ms-auto">
-                <a href="{{ url_for('carrito.mostrarProductos', preciototal=total) }}" class="btn btn-info">Atras</a>
+                <a href="{{ url_for('carrito.mostrarProductos', preciototal=total) }}" class="btn btn-dark text-white fs-4"><i class="bi bi-arrow-left-circle me-2"></i>Atras</a>
             </div>
 
         </div>
@@ -33,7 +33,7 @@
                 <a href="{{ url_for('carrito.comprarCarrito', preciototal=total) }}" class="btn btn-success my-4">Comprar</a>
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-6 mb-2">
                             <h4>Total: ${{ total }}</h4>
                         </div>
                     </div>
