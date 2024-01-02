@@ -1,71 +1,51 @@
 {% include 'index.html' %}
- 
-{% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/factura.css') }}">
-{% endblock %}
 
 {% block content %}
 
-<div class="container mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-12">
-            <!-- Encabezado de la factura -->
-            <div class="factura-encabezado p-3 mb-3">
-                <h2 class="text-center mb-0">Factura</h2>
-            </div>
+<div style="margin: 40px auto; max-width: 800px; border: 1px solid #ddd; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div style="border-bottom: 1px solid #ddd; margin-bottom: 20px; padding-bottom: 10px;">
+        <h2 style="text-align: center; margin: 0;">Factura</h2>
+    </div>
 
-            <!-- Información del emisor y del cliente -->
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <h5>Alarmas y polarizados K'liche</h5>
-                    <p><br>Ipiales, Colombia</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <h5>Factura a:</h5>
-                    <p>{{ current_user.nombre }}<br>{{ current_user.direccion }}
-                </div>
-            </div>
-
-            <!-- Detalles de la factura -->
-            <table class="table table-bordered">
-                <thead class="table-light">
-                    <tr>
-                        <th scope="col">Producto</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Precio Unitario</th>
-                        <th scope="col">Total</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <!-- Repetir filas según los productos o servicios -->
-                    {% for producto in session['carrito'] %}
-                        <tr>
-                            <td>{{ producto['nombre'] }}</td>
-                            <td>{{ producto['cantidad'] }}</td>
-                            <td>{{ producto['precio'] }}</td>
-                            <td>{{ producto['precio'] * producto['cantidad'] }}</td>
-                        </tr>
-                    {% endfor %}
-                    
-                    <!-- Total de la factura -->
-                    <tr class="factura-total">
-                        <td colspan="3" class="text-end"><strong>Total:</strong></td>
-                        <td>{{ precio_total }}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Notas o condiciones -->
-            <!-- <footer class="mt-5">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="text-center"><strong>Notas:</strong> Condiciones o notas adicionales.</p>
-                    </div>
-                </div>
-            </footer> -->
+    <!-- Información del emisor y del cliente -->
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <div style="flex: 1;">
+            <h5 style="margin: 0;">Alarmas y polarizados K'liche</h5>
+            <p style="margin: 2px 0;">Ipiales, Colombia</p>
+        </div>
+        <br><br>
+        <div style="flex: 1; text-align: right;">
+            <h5 style="margin: 0;">Factura a:</h5>
+            <p style="margin: 2px 0;">{{ current_user.nombre }}<br>{{ current_user.direccion }}</p>
         </div>
     </div>
+
+    <!-- Detalles de la factura -->
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th style="padding: 8px; border: 1px solid #ddd;">Producto</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Cantidad</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Precio Unitario</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in session['carrito'] %}
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ producto['nombre'] }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ producto['cantidad'] }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ producto['precio'] }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">{{ producto['precio'] * producto['cantidad'] }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3" style="text-align: right; padding: 8px; border: 1px solid #ddd; font-weight: bold;">Total:</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">{{ precio_total }}</td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>
 
 {% endblock %}

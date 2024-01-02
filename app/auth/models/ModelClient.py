@@ -1,3 +1,5 @@
+from flask import render_template
+
 from .entities.Client import Client
 
 #conexion a bd
@@ -44,7 +46,7 @@ class ModelClient():
                     return None
 
         except Exception as e:
-            raise Exception(e)
+            render_template('error500.html', error=e)
         
     @classmethod
     def registro(cls, client):
@@ -57,4 +59,4 @@ class ModelClient():
                 return True
 
         except Exception as e:
-            raise Exception(e)
+            render_template('error500.html', error=e)
