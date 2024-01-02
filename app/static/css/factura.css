@@ -1,0 +1,99 @@
+
+.border-top { border-top: 2px solid #000; }
+.border-bottom { border-bottom: 2px solid #000; }
+.border-start { border-left: 2px solid #000; }
+.border-end { border-right: 2px solid #000; }
+.factura-encabezado {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+}
+.factura-total {
+    background-color: #f8f9fa;
+    border-top: 2px solid #dee2e6;
+}
+
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-end {
+    text-align: end;
+}
+
+.mb-3, .mb-4, .mb-5 {
+    margin-bottom: 1rem; /* Ajusta según sea necesario */
+}
+
+.mt-5 {
+    margin-top: 3rem; /* Ajusta según sea necesario */
+}
+.factura-encabezado {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #f8f9fa; /* Ajusta según el color de fondo que prefieras */
+    border: 1px solid #dee2e6; /* Color del borde */
+}
+
+table {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+td {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table-light {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+.factura-total {
+    font-weight: bold;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col-md-6, .col-md-12 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}

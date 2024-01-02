@@ -1,5 +1,8 @@
 
-from flask import render_template, session
+from flask import render_template, flash
+from flask_login import current_user
+
+import app
 
 #entidad producto
 from .entities.Producto import Producto
@@ -9,6 +12,11 @@ from ...conexion import get_connection
 
 #logs
 import logging
+
+# Flask-mail
+from flask_mail import Mail, Message
+from flask import current_app
+from smtplib import SMTPException, SMTPRecipientsRefused
 
 
 class ModelCarrito():
@@ -71,3 +79,29 @@ class ModelCarrito():
         finally:
             connection.close()
 
+    
+
+    @classmethod
+    def enviarFacturaEmail(cls, precio_total):
+        try:
+                with current_app.app_context():
+                    html_content = render_template('plantilla_email.html', precio_total=precio_total)
+                    msg = Message("Factura kliche",
+                                sender="klicheflask@gmail.com",
+                                recipients=[current_user.usuario])
+                    msg.html = html_content
+
+                    current_app.mail.send(msg)
+
+        except SMTPRecipientsRefused as e:
+            logging.error(f"El correo no pudo ser enviado porque la(s) dirección(es) de correo son inválidas o no existen: {e}")
+            flash("El correo no pudo ser enviado porque la(s) dirección(es) de correo son inválidas o no existen", "danger")
+        except SMTPException as e:
+            logging.error(f"Ocurrió un error al enviar el correo: {e}")
+            flash("Ocurrió un error al enviar el correo de la factura", "danger")
+        except Exception as e:
+            logging.error(f"Error general al enviar la factura: {e}")
+            flash("Ocurrió un error al enviar la factura", "danger")
+
+
+    

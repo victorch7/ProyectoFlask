@@ -1,51 +1,50 @@
-from flask import Flask,render_template,redirect,url_for
+from flask import Flask, render_template, redirect, url_for
 
-#configuracion
+# Configuración
 from .config import config
 
-#flask-login
+# Flask-login
 from flask_login import LoginManager, login_user, logout_user, login_required
 
-#formulario
+# Formulario
 from flask_wtf.csrf import CSRFProtect
 
-# Models:
+# Models
 from .auth.models.ModelClient import ModelClient
 
-#logs
+# Logs
 import logging
 
 # Registrar blueprints
-
 from .auth import auth
 from .inicio import inicio
 from .acercade import acercade_bp
 from .carrito import carrito
-    
 
- # Configurar el sistema de logs
-logging.basicConfig(filename='app.log',filemode='a' ,level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+#flask-mails
+from flask_mail import Mail
 
+# Configurar el sistema de logs
+logging.basicConfig(filename='app.log', filemode='a', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def page_not_found(e):
-        return render_template('error404.html'), 404
+    return render_template('error404.html'), 404
 
 def status_401(error):
-        return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.login'))
 
 def status_500(error):
-        return render_template('error500.html'), 500
-    
+    return render_template('error500.html'), 500
 
 def create_app():
-    
     app = Flask(__name__, template_folder='templates')
 
-    #csrf
+
+    # CSRF
     csrf = CSRFProtect()
     csrf.init_app(app)
 
-    #Cargar usuario y sesión
+    # Cargar usuario y sesión
     login_manager = LoginManager(app)
 
     @login_manager.user_loader
@@ -57,13 +56,16 @@ def create_app():
     app.register_blueprint(acercade_bp)
     app.register_blueprint(carrito)
 
-    #configuracion
+    # Configuración
     app.config.from_object(config['development'])
     
-    #Errores
+    # Inicializar Flask-Mail
+    mail = Mail(app)
+    app.mail = mail
+
+    # Errores
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(401, status_401)
     app.register_error_handler(500, status_500)
-   
 
     return app

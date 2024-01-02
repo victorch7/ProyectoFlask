@@ -32,7 +32,7 @@ def mostrarProductos():
         return render_template('carrito.html', form=formProducto, productos=items_on_page, 
                                total_pages=total_pages, page=page, totalproductos=totalproductos)
     except Exception as e:
-        return redirect(url_for('error'))
+        return render_template('error500.html', error=e)
 
 
 
@@ -60,6 +60,8 @@ def comprarCarrito(preciototal):
     carrito_guardado = ModelCarrito.comprarDetallesCarrito(carrito_datos, preciototal)
     
     if carrito_guardado:
+        #enviar factura
+        ModelCarrito.enviarFacturaEmail(preciototal)
         # Eliminar la sesión del carrito
         if 'carrito' in session:
             session.pop('carrito')
@@ -76,7 +78,7 @@ def agregar_producto(producto_id, producto_nombre, producto_precio, producto_can
     if 'carrito' not in session:
         session['carrito'] = []
 
-    cantidad = int(request.form.get('cantidad'))  # Obtener la cantidad del formulario, usar 1 por defecto si no se proporciona
+    cantidad = int(request.form.get('cantidad'))  # Obtener la cantidad del formulario
 
     if cantidad > producto_cantidad:
         flash("No hay suficiente stock de este producto", 'danger')
@@ -120,3 +122,5 @@ def vaciar_carrito():
         flash("Carrito vaciado", 'info')
     session.modified = True
     return redirect(url_for('carrito.mostrarProductos'))
+
+

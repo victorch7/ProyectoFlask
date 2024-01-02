@@ -52,7 +52,6 @@ class ModelClient():
             connection = get_connection()
             with connection.cursor() as cursor:
                 sql = "INSERT INTO cliente (nombre, usuario, telefono, direccion, contrasena) VALUES (%s, %s, %s, %s, %s)"
-                datos = (client.nombre, client.usuario, client.telefono, client.direccion, client.password )
                 cursor.execute(sql, (client.nombre, client.usuario, client.telefono, client.direccion, generate_password_hash(client.password)))
                 connection.commit()
                 return True
