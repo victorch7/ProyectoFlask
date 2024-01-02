@@ -7,19 +7,21 @@
 {% endblock %}
 
 {% block content %}
+    {% include 'navbarPrincipal.html' %}
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="container mt-5">
 
-    <body>
-        {% include 'navbarPrincipal.html' %}
-        <div class="container">
-            <img class="img-fluid mx-auto d-block mt-5" src="{{ url_for('static', filename='images/logo-blanco.png') }}">
-            <div>
-                <div class="text-center m-4 text-white">
-                    <h2 id="color-ent" class="fs-1">Bienvenido a Lujos K'liche</h2>
-                    <h2 id="color-ent" class="fs-4 lh-sm">¡Todo en lujos para autos!</h2>
-                    <a href="/contacto" type="button" class="btn btn-dark p-2 mt-3 shadow" style="text-transform: none;">Sobre nosotros</a>              
-                </div>
+            <img class="img-fluid mx-auto d-block" src="{{ url_for('static', filename='images/logo-blanco.png') }}">
+            
+            <div class="text-center m-4 text-white">
+                <h2 id="color-ent" class="fs-1">Bienvenido a Lujos K'liche</h2>
+                <h2 id="color-ent" class="fs-4 lh-sm">¡Todo en lujos para autos!</h2>
+                <a href="/contacto" type="button" class="btn btn-dark p-2 mt-3 shadow" style="text-transform: none;">Sobre nosotros</a>              
             </div>
+            
         </div>
-        <footer class="footer">{% include 'footer.html' %}</footer>
-    </body>
+
+        
+    </div>
+    <footer>{% include 'footer.html' %}</footer>
 {% endblock %}

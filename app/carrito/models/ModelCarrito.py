@@ -102,6 +102,3 @@ class ModelCarrito():
         except Exception as e:
             logging.error(f"Error general al enviar la factura: {e}")
             flash("Ocurrió un error al enviar la factura", "danger")
-
-
-    
