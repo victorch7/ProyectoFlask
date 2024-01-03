@@ -55,6 +55,7 @@ def verCarrito():
 
 
 @carrito.route('/comprar/<int:preciototal>')
+@login_required
 def comprarCarrito(preciototal):
     carrito_datos = session['carrito']
     carrito_guardado = ModelCarrito.comprarDetallesCarrito(carrito_datos, preciototal)

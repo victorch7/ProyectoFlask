@@ -1,0 +1,171 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h2>Tabla de Clientes</h2>
+      <button class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#agregarClienteModal"><i
+          class="bi bi-file-earmark-plus me-2 "></i> Agregar cliente</button>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Direccion</th>
+              <th>Fecha de nacimiento</th>
+              <th>Ultimo login</th>
+              <th>Fecha creación</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for cliente in items_on_page %}
+            <tr>
+              <td>{{ cliente[0] }}</td>
+              <td>{{ cliente[1] }}</td>
+              <td>{{ cliente[2] }}</td>
+              <td>{{ cliente[3] }}</td>
+              <td>{{ cliente[4] }}</td>
+              <td>{{ cliente[5] }}</td>
+              <td>{{ cliente[6] }}</td>
+              <td>{{ cliente[7] }}</td>
+              <td>
+                <button class="btn btn-warning">
+                  <i class="bi bi-pencil-fill text-dark"></i> 
+                </button>
+              
+                <button class="btn btn-danger">
+                  <i class="bi bi-trash-fill text-dark"></i> 
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="text-black mt-3 ms-auto">
+        {% if page > 1 %}
+          <a href="{{ url_for('cliente.clientePage', page=page-1) }}" class="btn btn-primary">Anterior</a>
+        {% else %}
+          <span class="btn btn-secondary disabled">Anterior</span>
+        {% endif %}
+
+        <span class="mx-2 text-black">Página {{ page }} de {{ total_pages }}</span>
+
+        {% if page < total_pages %}
+          <a href="{{ url_for('cliente.clientePage', page=page+1) }}" class="btn btn-primary">Siguiente</a>
+        {% else %}
+          <span class="btn btn-secondary disabled">Siguiente</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para agregar cliente -->
+<div class="modal fade" id="agregarClienteModal" tabindex="-1" aria-labelledby="agregarClienteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="agregarClienteModalLabel">Agregar Cliente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Contenido del formulario para agregar cliente -->
+        <form method="post" action="{{ url_for('cliente.ingresarCliente') }}" novalidate>
+          {{ form.hidden_tag() }}
+
+
+          <div class="mb-3">
+            <label for="clienteNombre" class="form-label">Nombre del cliente</label>
+            {{ form.clienteNombre(class="form-control", id="clienteNombre") }}
+            {% if form.clienteNombre.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.clienteNombre.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="clienteDireccion" class="form-label">Dirección</label>
+            {{ form.clienteDireccion(class="form-control", id="clienteDireccion") }}
+            {% if form.clienteDireccion.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.clienteDireccion.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="clienteTelefono" class="form-label">Teléfono</label>
+            {{ form.clienteTelefono(class="form-control", id="clienteTelefono") }}
+            {% if form.clienteTelefono.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.clienteTelefono.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="clienteEmail" class="form-label">Email</label>
+            {{ form.clienteEmail(class="form-control", id="clienteEmail") }}
+            {% if form.clienteEmail.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.clienteEmail.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="contrasena" class="form-label">Contraseña</label>
+            {{ form.clienteContrasena(class="form-control", id="contrasena") }}
+            {% if form.clienteContrasena.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.clienteContrasena.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+            {{ form.clienteFechaNacimiento(class="form-control", id="fechaNacimiento") }}
+            {% if form.clienteFechaNacimiento.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.clienteFechaNacimiento.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- Otros campos de cliente, si es necesario -->
+          <button type="submit" class="btn btn-primary mx-auto">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Script para mostrar el modal si hay errores de validación -->
+{% if mostrar_modal %}
+<script>
+  $(document).ready(function () {
+    $('#agregarClienteModal').modal('show');
+  });
+</script>
+{% endif %}

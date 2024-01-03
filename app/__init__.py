@@ -21,8 +21,20 @@ from .inicio import inicio
 from .acercade import acercade_bp
 from .carrito import carrito
 
+#admin blueprints
+from .auth_admin import auth_admin
+from .dashboard import dashboard
+from .categoria import categoria
+from .producto import producto
+from .cliente import cliente
+from .usuario import usuario
+from .venta import venta
+
 #flask-mails
 from flask_mail import Mail
+
+# Models:
+from .auth_admin.models.ModelUser import ModelUser
 
 # Configurar el sistema de logs
 logging.basicConfig(filename='app.log', filemode='a', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -31,7 +43,7 @@ def page_not_found(e):
     return render_template('error404.html'), 404
 
 def status_401(error):
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('error500.html'))
 
 def status_500(error):
     return render_template('error500.html'), 500
@@ -51,10 +63,25 @@ def create_app():
     def load_client(id):
         return ModelClient.get_by_id(id)
     
+    @login_manager.user_loader
+    def load_user(id):
+        return ModelUser.get_by_id(id)
+    
+    #registrar blueprints
     app.register_blueprint(auth)
     app.register_blueprint(inicio)
     app.register_blueprint(acercade_bp)
     app.register_blueprint(carrito)
+
+    #registrar blueprints admin
+    app.register_blueprint(auth_admin)
+    app.register_blueprint(categoria)
+    app.register_blueprint(producto)
+    app.register_blueprint(cliente)
+    app.register_blueprint(usuario)
+    app.register_blueprint(venta)
+    app.register_blueprint(dashboard)
+    
 
     # Configuración
     app.config.from_object(config['development'])

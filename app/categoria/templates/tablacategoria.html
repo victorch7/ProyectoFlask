@@ -1,0 +1,98 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h2>Tabla de Categorías</h2>
+      <button class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#agregarCategoriaModal"><i
+          class="bi bi-file-earmark-plus me-2 "></i>Agregar categoría</button>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Categoría</th>
+              <th>Fecha creación</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for categoria in items_on_page %}
+            <tr>
+              <td>{{ categoria[0] }}</td>
+              <td>{{ categoria[1] }}</td>
+              <td>{{ categoria[2]}}</td>
+              <td>
+                <button class="btn btn-warning">
+                  <i class="bi bi-pencil-fill text-dark"></i> 
+                </button>
+              
+                <button class="btn btn-danger">
+                  <i class="bi bi-trash-fill text-dark"></i> 
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+  
+          </tbody>
+        </table>
+      </div>
+      <div class="text-black mt-3 ms-auto">
+        {% if page > 1 %}
+          <a href="{{ url_for('categoria.categoriaPage', page=page-1) }}" class="btn btn-primary">Anterior</a>
+        {% else %}
+          <span class="btn btn-secondary disabled">Anterior</span>
+        {% endif %}
+
+        <span class="mx-2 text-black">Página {{ page }} de {{ total_pages }}</span>
+
+        {% if page < total_pages %}
+          <a href="{{ url_for('categoria.categoriaPage', page=page+1) }}" class="btn btn-primary">Siguiente</a>
+        {% else %}
+          <span class="btn btn-secondary disabled">Siguiente</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="agregarCategoriaModal" tabindex="-1" aria-labelledby="agregarCategoriaModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="agregarCategoriaModalLabel">Agregar Categoría</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Contenido del formulario para agregar categoría -->
+        <form method="post" action="{{ url_for('categoria.ingresarCategoria') }}" novalidate>
+          {{ form.hidden_tag() }}
+          <div class="mb-3">
+            <label for="categoriaNombre" class="form-label">Nombre de la categoría</label>
+            {{ form.categoriaNombre(class="form-control", id="categoriaNombre") }}
+
+            {% if form.categoriaNombre.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.categoriaNombre.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <!-- Otros campos de categoría, si es necesario -->
+          <button type="submit" class="btn btn-primary mx-auto">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Script para mostrar el modal si hay errores de validación -->
+{% if mostrar_modal %}
+<script>
+  $(document).ready(function () {
+    $('#agregarCategoriaModal').modal('show');
+  });
+</script>
+{% endif %}

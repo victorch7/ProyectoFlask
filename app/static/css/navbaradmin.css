@@ -1,0 +1,12 @@
+nav {
+    background-color: #1f2f47;
+    border-radius: 15px;
+}
+
+#cerrar-sesion {
+    background-color: #395886;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+  }

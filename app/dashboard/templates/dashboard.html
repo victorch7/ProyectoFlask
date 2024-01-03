@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container-dashboard">
+
+  <div class="logo container ">
+    <div class="mx-4 my-2">
+      <img class="img-fluid" src="{{ url_for('static', filename='images/logo-blanco.png') }}">
+    </div>
+  </div>
+
+  <header class="header my-1 mx-2">
+    {% include 'navbaradmin.html' %}
+  </header>
+
+  <section class="sidebar my-3 mx-3">
+    {% include 'sidebar.html' %}
+  </section>
+
+  <main class="main my-3 mx-3">
+    {% include 'contenidodashboard.html' %}
+  </main>
+
+</div>
+
+
+
+{% endblock %}

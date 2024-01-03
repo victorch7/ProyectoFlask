@@ -1,0 +1,167 @@
+{% block content %}
+
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h2>Tabla de Usuarios</h2>
+      <button class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#agregarUsuarioModal"><i
+          class="bi bi-file-earmark-plus me-2 "></i> Agregar usuario</button>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Usuario</th>
+              <th>Perfil</th>
+              <th>Estado</th>
+              <th>Último login</th>
+              <th>Fecha creación</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for usuario in items_on_page %}
+            <tr>
+              <td>{{ usuario[0] }}</td>
+              <td>{{ usuario[1] }}</td>
+              <td>{{ usuario[2] }}</td>
+              <td>{{ usuario[4] }}</td>
+              <td>{{ 'Activo' if usuario[5] else 'Inactivo' }}</td>
+              <td>{{ usuario[6] if usuario[6] else 'N/A' }}</td>
+              <td>{{ usuario[7] if usuario[7] else 'N/A' }}</td>
+              <td>
+                <button class="btn btn-warning">
+                  <i class="bi bi-pencil-fill text-dark"></i> 
+                </button>
+              
+                <button class="btn btn-danger">
+                  <i class="bi bi-trash-fill text-dark"></i> 
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+      </div>
+      <div class="text-black mt-3 ms-auto">
+        {% if page > 1 %}
+          <a href="{{ url_for('usuario.usuarioPage', page=page-1) }}" class="btn btn-primary">Anterior</a>
+        {% else %}
+          <span class="btn btn-secondary disabled">Anterior</span>
+        {% endif %}
+
+        <span class="mx-2 text-black">Página {{ page }} de {{ total_pages }}</span>
+
+        {% if page < total_pages %}
+          <a href="{{ url_for('usuario.usuarioPage', page=page+1) }}" class="btn btn-primary">Siguiente</a>
+        {% else %}
+          <span class="btn btn-secondary disabled">Siguiente</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal para agregar usuario -->
+<div class="modal fade" id="agregarUsuarioModal" tabindex="-1" aria-labelledby="agregarUsuarioModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="agregarUsuarioModalLabel">Agregar Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Contenido del formulario para agregar usuario -->
+        <form method="post" action="{{ url_for('usuario.ingresarUsuario') }}" novalidate>
+          {{ form.hidden_tag() }}
+
+          <div class="mb-3">
+            <label for="usuarioNombre" class="form-label">Nombre del usuario</label>
+            {{ form.usuarioNombre(class="form-control", id="usuarioNombre") }}
+            {% if form.usuarioNombre.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.usuarioNombre.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="usuarioUsuario" class="form-label">Apodo de usuario</label>
+            {{ form.usuario(class="form-control", id="usuarioUsuario") }}
+            {% if form.usuario.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.usuario.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="contrasena" class="form-label">Contraseña</label>
+            {{ form.contrasena(class="form-control", id="contrasena") }}
+            {% if form.contrasena.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.contrasena.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+
+          <div class="mb-3">
+            <label for="usuarioPerfil" class="form-label">Perfil del usuario</label>
+            {{ form.usuarioPerfil(class="form-select", id="usuarioPerfil") }}
+            {% if form.usuarioPerfil.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.usuarioPerfil.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="usuarioEstado" class="form-label">Estado</label>
+            {{ form.usuarioEstado(class="form-control", id="usuarioEstado") }}
+
+
+            {% if form.usuarioEstado.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.usuarioEstado.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+          </div>
+
+          <button type="submit" class="btn btn-primary mx-auto">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+<!-- Script para mostrar el modal si hay errores de validación -->
+{% if mostrar_modal %}
+<script>
+  $(document).ready(function () {
+    $('#agregarUsuarioModal').modal('show');
+  });
+</script>
+{% endif %}

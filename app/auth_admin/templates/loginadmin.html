@@ -1,15 +1,11 @@
 {% extends 'index.html' %}
 
-{% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% block customCSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loginadmin.css') }}">
 {% endblock %}
 
 
 {% block title %}Iniciar sesión{% endblock %}
-
-{% block scripts %}
-    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
-{% endblock %}
 
 
 {% block content %}
@@ -17,31 +13,27 @@
 <div class="bg-login d-flex justify-content-center align-items-center vh-100">
   <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
     <div class="d-flex justify-content-center my-3">
-        <a href="/home">
       <img class="img-fluid" src="{{ url_for('static', filename='images/logokliche.png') }}" alt="Logo Kliche">
-        </a>
     </div>
  
-    <form action="{{ url_for('auth.prueba') }}" method="post" novalidate>
+    <form action="{{ url_for('auth_admin.loginAdmin') }}" method="post" novalidate>
         {{ form.hidden_tag() }}
-
         {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <br>
-            {% for message in messages %}
-                <div class="text-danger small mt-2" role="alert">
-                    <label>{{ message }}</label>
-                </div>
-            {% endfor %}
-        {% endif %}
+            {% if messages %}
+                <br>
+                {% for message in messages %}
+                    <div class="text-danger small mt-2" role="alert">
+                        <label>{{ message }}</label>
+                    </div>
+                {% endfor %}
+            {% endif %}
         {% endwith %}
 
-    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
       <div class="input-group mt-5">
           <div class="input-group-text">
-              <i class="bi bi-envelope-fill"></i>
+              <i class="bi bi-person-fill"></i>
           </div>
-          {{ form.usuario(class="form-control bg-light", placeholder="Usuario") }}
+          {{ form.usuario(class="form-control bg-light") }}
       </div>
 
       {% if form.usuario.errors %}
@@ -53,15 +45,11 @@
       {% endif %}
 
       <div class="input-group mt-4">
-        <div class="input-group-text">
-            <i class="bi bi-lock-fill"></i>
-        </div>
-        {{ form.contrasena(class="form-control bg-light", placeholder="Contraseña", id="password") }}
-        <div class="input-group-text">
-            <i class="bi bi-eye-fill" onclick="togglePasswordVisibility()"></i>
-        </div>
-    </div>
-    
+          <div class="input-group-text">
+              <i class="bi bi-lock-fill"></i>
+          </div>
+          {{ form.contrasena(class="form-control bg-light") }}
+      </div>
       
       {% if form.contrasena.errors %}
         <div class="text-danger small mt-2">
@@ -76,12 +64,11 @@
           Iniciar sesión
       </button>
   </form>
-  <div class="text-center mt-3">
-    <p>¿No tienes una cuenta?</p>
-    <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary">Registrarse</a>
-  </div>
-  </div>
-</div>
-</div>
-{% endblock %}
+  
 
+  </div>
+</div>
+</div>
+
+
+{% endblock %}

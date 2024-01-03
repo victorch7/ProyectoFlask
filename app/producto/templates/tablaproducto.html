@@ -1,0 +1,160 @@
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        <h2>Tabla de Productos</h2>
+        <button class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#agregarProductoModal"><i class="bi bi-file-earmark-plus me-2 "></i> Agregar producto</button>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Categoría</th>
+                <th>Nombre del producto</th>
+                <th>Descripción</th>
+                <th>Imagen</th>
+                <th>Precio venta</th>
+                <th>Stock</th>
+
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for producto in items_on_page %}
+              <tr>
+                <td>{{ producto[0] }} </td>
+                <td>{{ producto[1] }}</td>
+                <td>{{ producto[2] }}</td>
+                <td>{{ producto[3] }}</td>
+                <td><img src="{{ url_for('static', filename='{{producto[4]}}') }}" alt="Imagen del producto" width="50"></td>
+                <td>{{ producto[5] }}</td>
+                <td>{{ producto[6] }}</td>
+
+                <td>
+                  <button class="btn btn-warning">
+                    <i class="bi bi-pencil-fill text-dark"></i> 
+                  </button>
+                
+                  <button class="btn btn-danger">
+                    <i class="bi bi-trash-fill text-dark"></i> 
+                  </button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="text-black mt-3 ms-auto">
+          {% if page > 1 %}
+            <a href="{{ url_for('producto.productoPage', page=page-1) }}" class="btn btn-primary">Anterior</a>
+          {% else %}
+            <span class="btn btn-secondary disabled">Anterior</span>
+          {% endif %}
+  
+          <span class="mx-2 text-black">Página {{ page }} de {{ total_pages }}</span>
+  
+          {% if page < total_pages %}
+            <a href="{{ url_for('producto.productoPage', page=page+1) }}" class="btn btn-primary">Siguiente</a>
+          {% else %}
+            <span class="btn btn-secondary disabled">Siguiente</span>
+          {% endif %}
+      </div>
+    </div>
+  </div>
+
+<!-- Modal para agregar producto -->
+<div class="modal fade" id="agregarProductoModal" tabindex="-1" aria-labelledby="agregarProductoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="agregarProductoModalLabel">Agregar Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Contenido del formulario para agregar producto -->
+        <form method="post" action="{{ url_for('producto.ingresarProducto') }}" novalidate>
+          {{ form.hidden_tag() }}
+          
+          <div class="mb-3">
+            <label for="productoCategoria" class="form-label">Categoría del producto</label>
+            {{ form.productoCategoria(class="form-control", id="productoCategoria") }}
+            {% if form.productoCategoria.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.productoCategoria.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="productoNombre" class="form-label">Nombre del producto</label>
+            {{ form.productoNombre(class="form-control", id="productoNombre") }}
+            {% if form.productoNombre.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.productoNombre.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="productoDescripcion" class="form-label">Descripción del producto</label>
+            {{ form.productoDescripcion(class="form-control", id="productoDescripcion") }}
+            {% if form.productoDescripcion.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.productoDescripcion.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="productoImagen" class="form-label">URL de la imagen</label>
+            {{ form.productoImagen(class="form-control", id="productoImagen") }}
+            {% if form.productoImagen.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.productoImagen.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="productoPrecio" class="form-label">Precio de venta</label>
+            {{ form.productoPrecio(class="form-control", id="productoPrecio") }}
+            {% if form.productoPrecio.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.productoPrecio.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="productoStock" class="form-label">Stock</label>
+            {{ form.productoStock(class="form-control", id="productoStock") }}
+            {% if form.productoStock.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.productoStock.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <button type="submit" class="btn btn-primary mx-auto">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Script para mostrar el modal si hay errores de validación -->
+{% if mostrar_modal %}
+<script>
+  $(document).ready(function () {
+    $('#agregarProductoModal').modal('show');
+  });
+</script>
+{% endif %}

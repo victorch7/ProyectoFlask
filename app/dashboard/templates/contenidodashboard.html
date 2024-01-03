@@ -1,0 +1,59 @@
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contenidodashboard.css') }}">
+{% endblock %}
+
+
+<div class="container-fluid mt-5">
+    <h1 class="text-center fs-1 mb-4">Módulos</h1>
+    <div class="row mx-2">
+      <div class="col-md-4">
+        <div class="card text-center h-100">
+          <a href="{{ url_for('usuario.usuarioPage') }}" class="btn btn-outline-primary card-body text-white">
+                <i class="bi bi-person fs-3 mb-3"></i>
+                <h5 class="card-title">Usuarios</h5>
+                <p class="card-text">Gestión de usuarios en el sistema.</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center h-100">
+          <a href="{{ url_for('categoria.categoriaPage') }}" class="btn btn-outline-primary card-body text-white">
+            <i class="bi bi-diagram-2 fs-3 mb-3"></i>
+            <h5 class="card-title">Categorías</h5>
+            <p class="card-text">Administrar categorías de productos.</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center h-100">
+          <a href="{{ url_for('producto.productoPage') }}" class="btn btn-outline-primary card-body text-white">
+                <i class="bi bi-box fs-3 mb-3"></i>
+                <h5 class="card-title">Productos</h5>
+                <p class="card-text">Gestión de productos disponibles.</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row mt-4 mx-2">
+      <div class="col-md-4">
+        <div class="card text-center h-100">
+          <a href="{{ url_for('venta.ventaPage') }}" class="btn btn-outline-primary card-body text-white">
+            <i class="bi bi-cart3 fs-3 mb-3"></i>
+            <h5 class="card-title">Ventas</h5>
+            <p class="card-text">Registro y seguimiento de ventas.</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center h-100">
+          <a href="{{ url_for('cliente.clientePage') }}" class="btn btn-outline-primary card-body text-white">
+            <i class="bi bi-person-check fs-3 mb-3"></i>
+            <h5 class="card-title">Clientes</h5>
+            <p class="card-text">Gestión de clientes y sus detalles.</p>
+          </a>
+        </div>
+      </div>
+      <!-- Agrega más columnas y cards según tus necesidades -->
+    </div>
+  </div>

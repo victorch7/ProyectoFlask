@@ -1,0 +1,130 @@
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        <h2>Tabla de Ventas</h2>
+        <button class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#agregarVentaModal"><i class="bi bi-file-earmark-plus me-2 "></i> Agregar venta</button>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Productos</th>
+                <th>Total</th>
+                <th>Método de pago</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>Producto 1, Producto 2</td>
+                <td>$500.00</td>
+                <td>Tarjeta de crédito</td>
+                <td>2023-11-27</td>
+                <td>
+                  <button class="btn btn-warning">
+                    <i class="bi bi-pencil-fill text-dark"></i> 
+                  </button>
+                
+                  <button class="btn btn-danger">
+                    <i class="bi bi-trash-fill text-dark"></i> 
+                  </button>
+                </td>
+              </tr>
+              <!-- Puedes agregar más filas de ventas aquí -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal para agregar venta -->
+<div class="modal fade" id="agregarVentaModal" tabindex="-1" aria-labelledby="agregarVentaModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="agregarVentaModalLabel">Agregar Venta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Contenido del formulario para agregar venta -->
+        <form method="post" action="{{ url_for('venta.ingresarVenta') }}" novalidate>
+          {{ form.hidden_tag() }}
+          
+          <div class="mb-3">
+            <label for="ventaCliente" class="form-label">Cliente</label>
+            {{ form.ventaCliente(class="form-control", id="ventaCliente") }}
+            {% if form.ventaCliente.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.ventaCliente.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="ventaProductos" class="form-label">Productos</label>
+            {{ form.ventaProductos(class="form-control", id="ventaProductos") }}
+            {% if form.ventaProductos.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.ventaProductos.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="ventaTotal" class="form-label">Total</label>
+            {{ form.ventaTotal(class="form-control", id="ventaTotal") }}
+            {% if form.ventaTotal.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.ventaTotal.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="ventaMetodoPago" class="form-label">Método de pago</label>
+            {{ form.ventaMetodoPago(class="form-select", id="ventaMetodoPago") }}
+            {% if form.ventaMetodoPago.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.ventaMetodoPago.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="ventaFecha" class="form-label">Fecha</label>
+            {{ form.ventaFecha(class="form-control", id="ventaFecha") }}
+            {% if form.ventaFecha.errors %}
+            <div class="text-danger small mt-2">
+              {% for error in form.ventaFecha.errors %}
+              <label>{{ error }}</label>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <!-- Otros campos de venta, si es necesario -->
+          <button type="submit" class="btn btn-primary mx-auto">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Script para mostrar el modal si hay errores de validación -->
+{% if mostrar_modal %}
+<script>
+  $(document).ready(function () {
+    $('#agregarVentaModal').modal('show');
+  });
+</script>
+{% endif %}
