@@ -1,3 +1,11 @@
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/imagen.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<!DOCTYPE html>
+
 <div class="container mt-5">
     <div class="card">
       <div class="card-header">
@@ -27,7 +35,7 @@
                 <td>{{ producto[1] }}</td>
                 <td>{{ producto[2] }}</td>
                 <td>{{ producto[3] }}</td>
-                <td><img src="{{ url_for('static', filename='{{producto[4]}}') }}" alt="Imagen del producto" width="50"></td>
+                <td><img src="{{ url_for('static', filename='images/' ~ producto[4]) }}" alt="Imagen del producto" class="redimensionar-imagen"></td>
                 <td>{{ producto[5] }}</td>
                 <td>{{ producto[6] }}</td>
 
@@ -73,7 +81,7 @@
       </div>
       <div class="modal-body">
         <!-- Contenido del formulario para agregar producto -->
-        <form method="post" action="{{ url_for('producto.ingresarProducto') }}" novalidate>
+        <form method="post" enctype="multipart/form-data" action="{{ url_for('producto.ingresarProducto') }}" novalidate>
           {{ form.hidden_tag() }}
           
           <div class="mb-3">
@@ -143,7 +151,7 @@
             {% endif %}
           </div>
 
-          <button type="submit" class="btn btn-primary mx-auto">Guardar</button>
+          {{ form.submit(class="btn btn-primary mx-auto") }}
         </form>
       </div>
     </div>
@@ -158,3 +166,5 @@
   });
 </script>
 {% endif %}
+
+{% endblock %}

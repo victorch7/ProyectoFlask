@@ -13,10 +13,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <span class="example-spacer"></span>
-            <div class="d-flex align-items-center">
-                <h5 class="text-white mx-3">Usuario: {{ current_user.nombre }}</h5>
+
+                <a class="btn btn-dark text-white mx-3"><i class="bi bi-person-circle text-white me-1"></i> Usuario: {{ current_user.nombre }}</a>
                 <a href="{{ url_for('auth_admin.logoutAdmin') }}" class="btn btn-primary me-auto text-white">Cerrar sesión</a>
-            </div>
+
         </div>
     </div>
 </nav>

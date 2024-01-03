@@ -1,4 +1,5 @@
 from decouple import config
+import os
 
 class Config:
     SECRET_KEY = config('SECRET_KEY')
@@ -8,6 +9,7 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = 'klicheflask@gmail.com'
     MAIL_PASSWORD = 'sjqf zpbl pmtn xkjj'
+    UPLOAD_FOLDER = 'app/static/images'
 
 
 class DevelopmentConfig(Config):
