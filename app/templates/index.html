@@ -16,10 +16,13 @@
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+    <script src="{{ url_for('static', filename='js/traduccion.js') }}"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@300&family=Roboto:wght@300;400&family=Ubuntu&display=swap" rel="stylesheet">
+
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <title>{% block title %}Kliche{% endblock %}</title>
     {% block styles %}{% endblock %}
