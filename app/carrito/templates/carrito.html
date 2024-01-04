@@ -5,15 +5,47 @@
 {% endblock %}
 
 {% block content %}
-
-
-    <div class="container-grail">
+  
         <header>
             {% include 'navbar.html' %}
         </header>
 
+        
+ 
         <main>
+            
             <div class="d-flex flex-column h-100">
+                <div class="container mt-5">
+                    {% if session['carrito'] %}
+                      <div class="card carrito-container w-50">
+                        <div class="card-body p-2">
+                          <h5 class="card-title">Carrito de Compras</h5>
+                          {% for item in session['carrito'] %}
+                            <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pb-2">
+                              <div class="me-2">
+                                <p class="mb-1 fw-bold">{{ item.nombre }}</p>
+                                <p class="mb-0">Cant: {{ item.cantidad }}</p>
+                              </div>
+                              <span class="badge bg-dark rounded-pill">${{ item.precio * item.cantidad }}</span>
+                            </div>
+                          {% endfor %}
+                          <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pb-2">
+                            <div class="me-2">
+                              <p class="mb-1 fw-bold">Total</p>
+                            </div>
+                            <span class="badge bg-dark rounded-pill">${{ total }}</span>
+                          </div>
+                          <div class="d-flex justify-content-between align-items-center border-bottom pb-2">
+                            <a href="{{ url_for('carrito.comprarCarrito', preciototal=total) }}" class="btn btn-success btn-sm"><i class="bi bi-currency-dollar me-1"></i>Comprar</a>
+                            <a href="{{ url_for('carrito.vaciar_carrito') }}" class="btn btn-danger btn-sm shadow"><i class="bi bi-trash-fill me-1"></i> Vaciar Carrito</a>
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </div>
+                  
+                  
+
                 <div class="container text-white">
                     <h1 class="text-center my-5">Productos</h1>
                     <div class="col-12">
@@ -40,7 +72,7 @@
                                         <p class="card-text">${{ producto[5] }}</p>
                                         <div class="text-center">
                                             <form
-                                                action="{{ url_for('carrito.agregar_producto', producto_id=producto[0], producto_nombre=producto[1], producto_precio=producto[5], producto_cantidad=producto[6]) }}"
+                                                action="{{ url_for('carrito.agregar_producto', producto_id=producto[0], producto_nombre=producto[1], producto_precio=producto[5], producto_cantidad=producto[6], producto_imagen=producto[4]) }}"
                                                 method="post">
                                                 {{ form.hidden_tag() }}
                                                 <div class="input-group mb-3">
@@ -62,6 +94,9 @@
 
     </main>
 
+
+    
+
     <div class="container my-4 text-white">
         <div class="mt-3 text-center ">
             {% if page > 1 %}
@@ -80,7 +115,7 @@
         </div>
     </div>
 
-</div>
+
 <footer class="footer">{% include 'footer.html' %}</footer>
 
 

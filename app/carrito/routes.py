@@ -12,6 +12,14 @@ from . import carrito
 #formulario cantidad
 from .form import AgregarProductoForm
 
+def precioTotalCarrito():
+    totalprecio = 0
+    if 'carrito' in session:
+        #precio total
+        for producto in session['carrito']:
+            totalprecio += (producto['precio'] * producto['cantidad'])
+    return totalprecio
+
 
 @carrito.route('/productoslista', methods=['POST', 'GET'])
 def mostrarProductos():
@@ -22,6 +30,8 @@ def mostrarProductos():
         # Cantidad de productos en el carrito
         totalproductos = len(session['carrito']) if 'carrito' in session else 0
 
+        totalprecio = precioTotalCarrito()
+
         # Paginación
         page = request.args.get('page', 1, type=int)
         per_page = 6
@@ -29,7 +39,7 @@ def mostrarProductos():
         items_on_page = productos[(page - 1) * per_page: page * per_page]
 
         return render_template('carrito.html', form=formProducto, productos=items_on_page, 
-                               total_pages=total_pages, page=page, totalproductos=totalproductos)
+                               total_pages=total_pages, page=page, totalproductos=totalproductos, total=totalprecio)
     except Exception as e:
         return render_template('error500.html', error=e)
 
@@ -41,10 +51,8 @@ def verCarrito():
     try:
         # Verifica si hay un carrito en la sesión
         if 'carrito' in session:
-            #precio total
-            totalprecio = 0
-            for producto in session['carrito']:
-                totalprecio += (producto['precio'] * producto['cantidad'])
+
+            totalprecio = precioTotalCarrito()
                     
             return render_template('vercarrito.html', total=totalprecio)
         else:
@@ -72,8 +80,8 @@ def comprarCarrito(preciototal):
 
     return redirect(url_for('carrito.verCarrito'))
 
-@carrito.route('/agregar/<int:producto_id>/<producto_nombre>/<float:producto_precio>/<int:producto_cantidad>', methods=['POST'])
-def agregar_producto(producto_id, producto_nombre, producto_precio, producto_cantidad):
+@carrito.route('/agregar/<int:producto_id>/<producto_nombre>/<float:producto_precio>/<int:producto_cantidad>/<producto_imagen>', methods=['POST'])
+def agregar_producto(producto_id, producto_nombre, producto_precio, producto_cantidad, producto_imagen):
 
     if 'carrito' not in session:
         session['carrito'] = []
@@ -90,7 +98,8 @@ def agregar_producto(producto_id, producto_nombre, producto_precio, producto_can
             'id': producto_id,
             'nombre': producto_nombre,
             'precio': producto_precio,
-            'cantidad': cantidad
+            'cantidad': cantidad,
+            'imagen': producto_imagen
         })
         session.modified = True  # Marcar la sesión como modificada
         flash("Producto agregado al carrito", 'success')
