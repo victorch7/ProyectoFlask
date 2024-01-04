@@ -101,12 +101,7 @@ body {
     text-align: center; /* Centra la imagen horizontalmente */
 }
 
-.card img{
-    width: 400px; height: 420px;
-    border-radius: 2%;
 
-
-}
 
 .horizontal-list {
     list-style: none;

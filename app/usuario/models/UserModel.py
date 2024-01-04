@@ -1,3 +1,4 @@
+import uuid
 
 from werkzeug.security import generate_password_hash
 
@@ -11,11 +12,14 @@ class UserModel():
 
     @classmethod
     def register(self, user):
+        user_id = str(uuid.uuid4())  # Genera un UUID único para el nuevo usuario
         try:
             connection = get_connection()
             with connection.cursor() as cursor:
-                sql = """INSERT INTO usuario (usuario, contrasena, nombre, perfil, estado)
-                    VALUES ('{}', '{}', '{}', '{}', '{}')""".format(user.usuario, generate_password_hash(user.contrasena) , user.nombre, user.perfil, user.estado)
+                sql = """INSERT INTO usuario (id, usuario, contrasena, nombre, perfil, estado)
+                         VALUES ('{}', '{}', '{}', '{}', '{}', '{}')""".format(
+                            user_id, user.usuario, generate_password_hash(user.contrasena), 
+                            user.nombre, user.perfil, user.estado)
                 cursor.execute(sql)
                 connection.commit()
                 return True

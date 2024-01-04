@@ -25,10 +25,12 @@ def prueba():
 
             logged_client = ModelClient.login(client)
 
-            if logged_client != None:
+            if logged_client is not None:
                 if logged_client.password:
                     logging.info(f"Usuario: {logged_client.nombre} ha iniciado sesión")
+ 
                     login_user(logged_client)
+
                     return redirect(url_for('carrito.mostrarProductos'))
 
                 else:
@@ -62,7 +64,6 @@ def register():
 
 
 @auth.route('/logout')
-@login_required
 def logout():
     logging.info(f"Usuario {current_user} ha cerrado sesión")
     logout_user()

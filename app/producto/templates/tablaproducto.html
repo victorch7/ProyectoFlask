@@ -4,7 +4,6 @@
 
 
 {% block content %}
-<!DOCTYPE html>
 
 <div class="container mt-5">
     <div class="card">
@@ -35,7 +34,7 @@
                 <td>{{ producto[1] }}</td>
                 <td>{{ producto[2] }}</td>
                 <td>{{ producto[3] }}</td>
-                <td><img src="{{ url_for('static', filename='images/' ~ producto[4]) }}" alt="Imagen del producto" class="redimensionar-imagen"></td>
+                <td><img class="redimensionar-imagen" src="{{ url_for('static', filename='images/' ~ producto[4]) }}" alt="Imagen del producto" class="redimensionar-imagen"></td>
                 <td>{{ producto[5] }}</td>
                 <td>{{ producto[6] }}</td>
 

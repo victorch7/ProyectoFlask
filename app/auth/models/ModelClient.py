@@ -35,8 +35,8 @@ class ModelClient():
             connection = get_connection()
             with connection.cursor() as cursor:
                 sql = """SELECT id, nombre, usuario, telefono, direccion, contrasena, ultimo_login, fecha_creacion FROM cliente 
-                    WHERE id = '{}'""".format(id)
-                cursor.execute(sql)
+                    WHERE id = %s"""
+                cursor.execute(sql, (id,))
                 row = cursor.fetchone()
                 
                 if row is not None:

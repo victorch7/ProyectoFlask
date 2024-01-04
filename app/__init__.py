@@ -43,7 +43,7 @@ def page_not_found(e):
     return render_template('error404.html'), 404
 
 def status_401(error):
-    return redirect(url_for('error500.html'))
+    return render_template('error401.html'), 500
 
 def status_500(error):
     return render_template('error500.html'), 500
@@ -58,14 +58,18 @@ def create_app():
 
     # Cargar usuario y sesión
     login_manager = LoginManager(app)
-
-    @login_manager.user_loader
-    def load_client(id):
-        return ModelClient.get_by_id(id)
     
     @login_manager.user_loader
-    def load_user(id):
-        return ModelUser.get_by_id(id)
+    def user_loader(id):
+        print("=" *50)
+        print(id)
+
+        print("=" *50)
+        user = ModelClient.get_by_id(id)
+        if user is None:
+            user = ModelUser.get_by_id(id)
+        return user
+    
     
     #registrar blueprints
     app.register_blueprint(auth)

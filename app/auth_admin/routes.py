@@ -23,11 +23,11 @@ def loginAdmin():
     if request.method == 'POST':
         if form.validate_on_submit():
             user = User('', request.form.get('usuario'), request.form.get('contrasena'), '', '', '', '','')
-            loged_user = ModelUser.login(user)
+            logged_user = ModelUser.login(user)
             
-            if loged_user != None:
-                if loged_user.contrasena:
-                    login_user(loged_user)
+            if logged_user is not None:
+                if logged_user.contrasena:
+                    login_user(logged_user)
                     logging.info(f"Usuario {current_user.usuario} ha iniciado sesión")
                     return redirect(url_for('dashboard.dashboard'))
                 else:
@@ -38,7 +38,6 @@ def loginAdmin():
     return render_template('loginadmin.html', form=form)
 
 @auth_admin.route('/adminlogout')
-@login_required
 def logoutAdmin():
     logging.info(f"Usuario {current_user.usuario} ha cerrado sesión")
     logout_user()

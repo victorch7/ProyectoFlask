@@ -13,8 +13,7 @@ from . import carrito
 from .form import AgregarProductoForm
 
 
-@carrito.route('/productos', methods=['POST', 'GET'])
-@login_required
+@carrito.route('/productoslista', methods=['POST', 'GET'])
 def mostrarProductos():
     try:
         formProducto = AgregarProductoForm()

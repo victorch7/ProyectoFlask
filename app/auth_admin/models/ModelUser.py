@@ -12,15 +12,11 @@ class ModelUser():
     def login(self, user):
         try:
             connection = get_connection()
- 
             with connection.cursor() as cursor:
                 sql = """SELECT id, usuario, contrasena, nombre, perfil, estado, ultimo_login, fecha_creacion FROM usuario 
                             WHERE usuario = %s"""
-                    
-
                 cursor.execute(sql, (user.usuario,))
                 row = cursor.fetchone()
-
                 if row is not None:
                     user = User(row[0], row[1], User.check_password(row[2], user.contrasena), row[3], row[4], row[5], row[6], row[7])
                     return user
