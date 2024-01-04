@@ -39,7 +39,6 @@ def loginAdmin():
 
 @auth_admin.route('/adminlogout')
 def logoutAdmin():
-    logging.info(f"Usuario {current_user.usuario} ha cerrado sesión")
     logout_user()
     return redirect(url_for('auth_admin.loginAdmin'))
 
