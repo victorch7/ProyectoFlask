@@ -51,6 +51,8 @@ def status_500(error):
 def create_app():
     app = Flask(__name__, template_folder='templates')
 
+    # Configuración
+    app.config.from_object(config['development'])
 
     # CSRF
     csrf = CSRFProtect()
@@ -87,8 +89,7 @@ def create_app():
     app.register_blueprint(dashboard)
     
 
-    # Configuración
-    app.config.from_object(config['development'])
+    
     
     # Inicializar Flask-Mail
     mail = Mail(app)

@@ -17,9 +17,7 @@ from flask_login import login_user, login_manager, logout_user, login_required
 @login_required
 def categoriaPage():
     form = CategoriaForm()
-
     categoria = CategoriaModel.listar_categorias()
-
     #Paginación
     page = request.args.get('page', 1, type=int)
     per_page = 5

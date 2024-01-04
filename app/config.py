@@ -9,8 +9,8 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = 'klicheflask@gmail.com'
     MAIL_PASSWORD = 'sjqf zpbl pmtn xkjj'
-    UPLOAD_FOLDER = 'app/static/images'
-
+    # os.path.join
+    UPLOAD_FOLDER = os.path.join('app', 'static', 'images')
 
 class DevelopmentConfig(Config):
     DEBUG = True

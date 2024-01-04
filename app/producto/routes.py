@@ -1,4 +1,6 @@
 from flask import redirect, render_template, url_for, request
+
+
 from . import producto
 from .forms import ProductoForm
 
@@ -9,6 +11,7 @@ from flask import current_app
 
 #modelo
 from .models.ProductModel import ProductoModel
+
 
 #entidad
 from .models.entities.ProductoEntity import Producto
@@ -21,14 +24,11 @@ from decouple import config
 @login_required
 def productoPage():
     form = ProductoForm()
-
-     #Obtener campos para la paginación
-    producto = ProductoModel.listar_productos()
-    
+    #Obtener campos para la paginación
+    producto = ProductoModel.listar_productos() 
     # Resto del código para la paginación
     page = request.args.get('page', 1, type=int)
     per_page = 5
-
     total_pages = (len(producto) + per_page - 1) // per_page
     items_on_page = producto[(page - 1) * per_page: page * per_page]
 
@@ -46,7 +46,6 @@ def ingresarProducto():
             if image_file is not None:
                 filename = secure_filename(image_file.filename)
                 image_file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-                
             else:
                 # Manejar el caso en que no se subió un archivo
                 filename = "default_image.jpg"  # Por ejemplo, usa una imagen predeterminada
@@ -71,3 +70,9 @@ def ingresarProducto():
     items_on_page = producto[(page - 1) * per_page: page * per_page]
         
     return render_template(template_name_or_list='producto.html', form=form, producto=producto, items_on_page=items_on_page, total_pages=total_pages, page=page, mostrar_modal=form.errors)
+
+
+@producto.route('/eliminar_producto/<int:id>', methods=['POST'])
+def eliminarProducto(id):
+    ProductoModel.eliminar_producto(id)
+    return redirect(url_for('producto.productoPage'))

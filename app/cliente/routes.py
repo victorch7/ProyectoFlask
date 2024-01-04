@@ -49,3 +49,9 @@ def ingresarCliente():
     items_on_page = clientes[(page - 1) * per_page: page * per_page]
 
     return render_template('cliente.html', form=form, clientes=clientes, items_on_page=items_on_page, total_pages=total_pages, page=page, mostrar_modal=form.errors)
+
+@cliente.route('/eliminar_cliente/<int:id>', methods=['POST'])
+@login_required
+def eliminarCliente(id):
+    ClienteModel.eliminar_cliente(id)
+    return redirect(url_for('cliente.clientePage'))

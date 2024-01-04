@@ -72,7 +72,7 @@ class ModelCarrito():
 
                 return True
 
-        except Exception as e:
+        except connection.mysql.connector.Error as e:
             logging.error(f"Error en la base de datos: {e}")
             connection.rollback()
             return False

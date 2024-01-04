@@ -51,3 +51,4 @@ def ingresarUsuario():
 
     return render_template('usuario.html', form=form, usuarios=usuarios, items_on_page=items_on_page, total_pages=total_pages, page=page, mostrar_modal=form.errors)
 
+

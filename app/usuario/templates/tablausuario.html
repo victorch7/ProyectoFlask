@@ -20,10 +20,8 @@
               <th>Estado</th>
               <th>Último login</th>
               <th>Fecha creación</th>
-              <th>Acciones</th>
             </tr>
           </thead>
-
           <tbody>
             {% for usuario in items_on_page %}
             <tr>
@@ -34,15 +32,6 @@
               <td>{{ 'Activo' if usuario[5] else 'Inactivo' }}</td>
               <td>{{ usuario[6] if usuario[6] else 'N/A' }}</td>
               <td>{{ usuario[7] if usuario[7] else 'N/A' }}</td>
-              <td>
-                <button class="btn btn-warning">
-                  <i class="bi bi-pencil-fill text-dark"></i> 
-                </button>
-              
-                <button class="btn btn-danger">
-                  <i class="bi bi-trash-fill text-dark"></i> 
-                </button>
-              </td>
             </tr>
             {% endfor %}
           </tbody>

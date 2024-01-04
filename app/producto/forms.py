@@ -4,8 +4,10 @@ from wtforms.validators import InputRequired
 
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 
+from app.categoria.models.CategoriaModel import CategoriaModel
+
 class ProductoForm(FlaskForm):
-    opciones_categoria = [('', 'Seleccione categoría'), ('categoria1', 'Categoría 1'), ('categoria2', 'Categoría 2')]
+    opciones_categoria = [('','Seleccione categoría')] + CategoriaModel.listar_categorias_productoform()
     productoCategoria = SelectField('Categoría del producto', choices=opciones_categoria, validators=[InputRequired(message="Ingrese una categoría")])
 
     productoNombre = StringField('Nombre del producto', validators=[InputRequired(message="Ingrese nombre del producto")])

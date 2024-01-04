@@ -49,3 +49,15 @@ class ClienteModel():
             raise Exception(e)
         finally:
             connection.close()
+
+    @classmethod
+    def eliminar_cliente(self, id):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                sql = """DELETE FROM cliente WHERE id = %s"""
+                cursor.execute(sql, (id,))
+                connection.commit()
+        except connection.mysql.connector.Error as e:
+            logging.error(f"Error en la base de datos: {e}")
+            raise Exception(e)

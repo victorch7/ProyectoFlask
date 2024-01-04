@@ -33,13 +33,12 @@
               <td>{{ cliente[6] }}</td>
               <td>{{ cliente[7] }}</td>
               <td>
-                <button class="btn btn-warning">
-                  <i class="bi bi-pencil-fill text-dark"></i> 
-                </button>
-              
-                <button class="btn btn-danger">
-                  <i class="bi bi-trash-fill text-dark"></i> 
-                </button>
+                <form method="post" action="{{ url_for('cliente.eliminarCliente', id=cliente[0]) }}">
+                  {{ form.hidden_tag() }}
+                  <button class="btn btn-danger" type="submit">
+                    <i class="bi bi-trash-fill text-white"></i> 
+                  </button>
+                </form>
               </td>
             </tr>
             {% endfor %}

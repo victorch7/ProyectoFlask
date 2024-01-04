@@ -10,35 +10,33 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Cliente</th>
-                <th>Productos</th>
                 <th>Total</th>
-                <th>Método de pago</th>
-                <th>Fecha</th>
-                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>Producto 1, Producto 2</td>
-                <td>$500.00</td>
-                <td>Tarjeta de crédito</td>
-                <td>2023-11-27</td>
-                <td>
-                  <button class="btn btn-warning">
-                    <i class="bi bi-pencil-fill text-dark"></i> 
-                  </button>
-                
-                  <button class="btn btn-danger">
-                    <i class="bi bi-trash-fill text-dark"></i> 
-                  </button>
-                </td>
-              </tr>
-              <!-- Puedes agregar más filas de ventas aquí -->
+              {% for item in ventas %}
+                <tr>
+                  <td>{{ item[0] }}</td>
+                  <td>{{ item[1] }}</td>
+                </tr>
+              {% endfor %}
             </tbody>
           </table>
+        </div>
+        <div class="text-black mt-3 ms-auto">
+          {% if page > 1 %}
+            <a href="{{ url_for('venta.ventaPage', page=page-1) }}" class="btn btn-primary">Anterior</a>
+          {% else %}
+            <span class="btn btn-secondary disabled">Anterior</span>
+          {% endif %}
+  
+          <span class="mx-2 text-black">Página {{ page }} de {{ total_pages }}</span>
+  
+          {% if page < total_pages %}
+            <a href="{{ url_for('venta.ventaPage', page=page+1) }}" class="btn btn-primary">Siguiente</a>
+          {% else %}
+            <span class="btn btn-secondary disabled">Siguiente</span>
+          {% endif %}
         </div>
       </div>
     </div>
